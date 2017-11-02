@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import br.edu.gs.enums.Platforms;
-
 /**
  * @author André Torres
  * Classe representando a entidade jogo (gerada pelo JPA)
@@ -33,7 +31,7 @@ public class Game implements Serializable {
 	private String deDescription;
 
 	@Column(name = "ID_PLATAFORM")
-	private Platforms idPlataform;
+	private int idPlataform;
 
 	@Column(name = "NM_DEVELOPER")
 	private String nmDeveloper;
@@ -67,11 +65,11 @@ public class Game implements Serializable {
 		}
 	}
 
-	public Platforms getIdPlataform() {
+	public int getIdPlataform() {
 		return this.idPlataform;
 	}
 
-	public void setIdPlataform(Platforms idPlataform) {
+	public void setIdPlataform(int idPlataform) {
 		this.idPlataform = idPlataform;
 	}
 
