@@ -16,7 +16,8 @@ import javax.persistence.Table;
 import br.edu.gs.enums.Platforms;
 
 /**
- * Classe representando a entidade jogo
+ * @author André Torres
+ * Classe representando a entidade jogo (gerada pelo JPA)
  */
 @Entity
 @Table(name = "TB_GAME")
