@@ -38,6 +38,7 @@ public class User implements Serializable {
 	private String vlPassw;
 
 	public User() {
+		this.dtRegister = new Date();
 	}
 
 	public long getIdUser() {

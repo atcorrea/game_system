@@ -18,7 +18,7 @@ class EntityManagerFactorySingleton {
 	
 	public static EntityManagerFactory getInstance(){
 		if (emf == null){
-			emf = Persistence.createEntityManagerFactory("gsys");
+			emf = Persistence.createEntityManagerFactory("game");
 		}
 			return emf;			
 	}
