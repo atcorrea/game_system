@@ -1,4 +1,4 @@
-package br.edu.gs.model.dal;
+package br.edu.gs.model.dao;
 
 import java.util.List;
 

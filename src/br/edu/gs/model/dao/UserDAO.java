@@ -1,4 +1,4 @@
-package br.edu.gs.model.dal;
+package br.edu.gs.model.dao;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import javax.persistence.TypedQuery;
 
 import br.edu.gs.model.User;
 
-public class UserDAL implements IDal<User> {
+public class UserDAO implements IDal<User> {
 
-	public UserDAL() {
+	public UserDAO() {
 
 	}
 
@@ -59,7 +59,7 @@ public class UserDAL implements IDal<User> {
 		return user;
 	}
 
-	public boolean authenticate(User object) {
+	public Boolean authenticate(User object) {
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
 		em.getTransaction().begin();
 		TypedQuery<User> tq = em.createQuery("select u from User u where u.nmUser = :nm and u.vlPassw = :pw",

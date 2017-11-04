@@ -1,4 +1,4 @@
-package br.edu.gs.model.dal;
+package br.edu.gs.model.dao;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 import br.edu.gs.enums.GameSearchMode;
 import br.edu.gs.model.Game;
 
-public class GameDAL implements IDal<Game> {
+public class GameDAO implements IDal<Game> {
 
 	private final int QUERY_LIMIT = 150;
 
