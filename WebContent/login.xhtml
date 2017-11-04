@@ -11,18 +11,22 @@
 
 	<div>
 		<h:form>
-			<h:panelGrid columns="2">
+			<h:panelGrid>
 				<h:panelGroup>
 					<h:outputLabel value="Usuário"></h:outputLabel>
 					<h:inputText value="#{userMB.user.nmUser}"/>
 				</h:panelGroup>
-				
 				<h:panelGroup>
 					<h:outputLabel value="Senha"></h:outputLabel>
 					<h:inputSecret value="#{userMB.user.vlPassw}"/>
 				</h:panelGroup>
+				<h:commandButton value="Entrar" action="#{userMB.authenticate}" />				
 			</h:panelGrid>
-		</h:form>	
+		</h:form>
+		<h:panelGrid columns="2">
+			<h:outputLink value="register-user.xhtml"> Criar Conta </h:outputLink>
+			<h:outputLink value="forgot-password.xhtml"> Esqueci minha senha </h:outputLink>
+		</h:panelGrid>
 	</div>
 </body>
 </html>

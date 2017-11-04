@@ -27,10 +27,10 @@ public class UserMB {
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		} catch (Exception e) {
-			return "error";
+			return "";
 		}
 
-		return "success";
+		return "";
 	}
 
 	public String authenticate() {
