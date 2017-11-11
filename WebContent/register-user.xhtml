@@ -2,27 +2,59 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h ="http://java.sun.com/jsf/html"
-	  xmlns:f ="http://xmlns.jcp.org/jsf/core">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Cadastrar Usuário</title>
-</head>
-<body>
-	<h1>Novo Cadastro</h1>
-	<h:form>
-		<h:outputLabel value="UserName"/>
-		<h:inputText value="#{userMB.user.nmUser}"/>
-		<br/>
-		
-		<h:outputLabel value="Senha"/>
-		<h:inputText value="#{userMB.user.vlPassw}"/>
-		<br/>
-		
-		<h:outputLabel value="e-mail"/>
-		<h:inputText value="#{userMB.user.deEmail}"/>
-		<br/>
-		
-		<h:commandButton value="Cadastrar" action="#{userMB.createUser}"/>
-	</h:form>
-</body>
+	  xmlns:f ="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p ="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Cadastrar Usuário</title>
+</h:head>
+
+<h:body>
+	<p:panel header="Cadastro de Novo Usuário" style="width:40%">
+		<h:form>
+		<p:growl autoUpdate="true"></p:growl>
+						<h:outputLabel value="Nome de Usuário"/>			
+					
+						<p:inputText id="txtNmUser" 
+						value="#{userMB.user.nmUser}"
+						required="true"
+						requiredMessage="Campo Obrigatório"
+						validatorMessage="Nome de Usuário Inválido">
+							<!-- Verificar o tamanho do campo -->
+							<f:validateLength for="txtNmUser" minimum="4" maximum="70"></f:validateLength>
+						</p:inputText>
+				
+						<h:outputLabel value="Senha"/>
+					
+						<p:password id="txtVlPassw"
+						value="#{userMB.user.vlPassw}"
+						required="true"
+						requiredMessage="Campo Obrigatório"
+						validatorMessage="A Senha deve conter de 8 a 30 caracteres e pelo menos 1 número">
+							<!-- Verificar o tamanho do campo -->
+							<f:validateLength for="txtVlPassw" minimum="8" maximum="30"></f:validateLength>
+							<!-- Verificar se a senha possui 1 número (regex) -->
+							<f:validateRegex for="txtVlPassw" pattern=".*\d+.*"></f:validateRegex>		
+						</p:password>
+				
+						<h:outputLabel value="e-mail"/>
+
+						<p:inputText id="txtEmail" 
+						value="#{userMB.user.deEmail}"
+						required="true"
+						requiredMessage="Campo Obrigatório"
+						validatorMessage="Email inválido">
+							<!-- Verificar o tamanho do campo -->
+							<f:validateLength for="txtVlPassw" maximum="250"></f:validateLength>
+							<!-- Verificar se é um email válido (regex) -->
+							<f:validateRegex for="txtVlPassw" pattern="\w+(?:\.|-)?@\w+(?:\.)\w+"></f:validateRegex>
+						</p:inputText>
+
+						<p:commandButton value="Cadastrar" action="#{userMB.newUser}" style="width:100%"/>
+
+			
+		</h:form>
+	</p:panel>	
+</h:body>
+
 </html>

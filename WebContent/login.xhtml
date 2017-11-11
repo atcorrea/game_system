@@ -17,7 +17,7 @@
 					<p:panelGrid>
 						
 						<h:panelGroup>
-							<h:outputLabel for="login" value="Usuário"></h:outputLabel>
+							<h:outputLabel for="txtLogin" value="Usuário"></h:outputLabel>
 							<p:inputText id="txtLogin" 
 							value="#{userMB.user.nmUser}" 
 							required="true" 
@@ -29,7 +29,7 @@
 						</h:panelGroup>
 	
 						<h:panelGroup>
-							<h:outputLabel value="Senha"></h:outputLabel>
+							<h:outputLabel for="txtPassword" value="Senha"></h:outputLabel>
 							<p:password id="txtPassword"
 							value="#{userMB.user.vlPassw}" 					 
 							required="true"
@@ -45,7 +45,7 @@
 					
 					</p:panelGrid>
 					
-				<h:commandButton value="Entrar" action="#{userMB.authenticate}"/>							
+				<p:commandButton value="Entrar" action="#{userMB.authenticate}"/>							
 		</h:form>			
 		<h:panelGrid columns="2">
 			<h:outputLink value="register-user.xhtml"> Criar Conta </h:outputLink>

@@ -19,12 +19,10 @@ public class UserMB {
 	private User u = new User();
 	private UserDAO dao = new UserDAO();
 
-	public String createUser() {
+	public String newUser() {
 
 		try {
 			dao.insert(u);
-			FacesMessage msg = new FacesMessage("Usuário criado com sucesso!");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 
 		} catch (Exception e) {
 			return "";
