@@ -2,31 +2,55 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h ="http://java.sun.com/jsf/html"
-	  xmlns:f ="http://xmlns.jcp.org/jsf/core">
-<head>
+	  xmlns:f ="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Login no GameSystem</title>
-</head>
-<body>
+</h:head>
 
-	<div>
-		<h:form>
-			<h:panelGrid>
-				<h:panelGroup>
-					<h:outputLabel value="Usuário"></h:outputLabel>
-					<h:inputText value="#{userMB.user.nmUser}"/>
-				</h:panelGroup>
-				<h:panelGroup>
-					<h:outputLabel value="Senha"></h:outputLabel>
-					<h:inputSecret value="#{userMB.user.vlPassw}"/>
-				</h:panelGroup>
-				<h:commandButton value="Entrar" action="#{userMB.authenticate}" />				
-			</h:panelGrid>
-		</h:form>
+<h:body>
+		<p:panel header="Login no Sistema" style="width:25%; padding:2%; margin:10% 35%">
+		<h:form >
+			
+			<p:messages autoUpdate="true" />
+					<p:panelGrid>
+						
+						<h:panelGroup>
+							<h:outputLabel for="login" value="Usuário"></h:outputLabel>
+							<p:inputText id="txtLogin" 
+							value="#{userMB.user.nmUser}" 
+							required="true" 
+							placeholder="digite seu login"
+							requiredMessage="Preencha o nome de usuário para continuar"
+							validatorMessage="Usuário inválido!">
+							<f:validateLength minimum="4" maximum="70" for="txtLogin"></f:validateLength>
+							</p:inputText>
+						</h:panelGroup>
+	
+						<h:panelGroup>
+							<h:outputLabel value="Senha"></h:outputLabel>
+							<p:password id="txtPassword"
+							value="#{userMB.user.vlPassw}" 					 
+							required="true"
+							placeholder="senha" 
+							requiredMessage="Preencha a senha para continuar"
+							validatorMessage="Senha Inválida!"
+							maxlength="30">
+							<f:validateLength minimum="6" maximum="30" for="txtPassword">
+							</f:validateLength>
+							<f:validateRegex pattern=".*\d+.*" for="txtPassword"></f:validateRegex>
+							</p:password>
+						</h:panelGroup>
+					
+					</p:panelGrid>
+					
+				<h:commandButton value="Entrar" action="#{userMB.authenticate}"/>							
+		</h:form>			
 		<h:panelGrid columns="2">
 			<h:outputLink value="register-user.xhtml"> Criar Conta </h:outputLink>
 			<h:outputLink value="forgot-password.xhtml"> Esqueci minha senha </h:outputLink>
 		</h:panelGrid>
-	</div>
-</body>
+		</p:panel>
+</h:body>
 </html>

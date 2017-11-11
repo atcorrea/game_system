@@ -35,8 +35,17 @@ public class UserMB {
 
 	public String authenticate() {
 
-		return dao.authenticate(u).toString();
-
+		boolean userOK =  dao.authenticate(u);
+		
+		if(userOK){
+			return "register-user.xhtml";
+		}
+		
+		else{
+			FacesMessage msg = new FacesMessage("Este usuário não existe ou a senha digitada é inválida");
+			FacesContext.getCurrentInstance().addMessage( null, msg);
+			return "";
+		}
 	}
 
 	public User getUser() {
