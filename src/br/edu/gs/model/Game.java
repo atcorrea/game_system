@@ -14,13 +14,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- * @author André Torres
- * Classe representando a entidade jogo (gerada pelo JPA)
+ * @author André Torres Classe representando a entidade jogo (gerada pelo JPA)
  */
 @Entity
 @Table(name = "TB_GAME")
 @NamedQuery(name = "Game.findAll", query = "SELECT t FROM Game t")
 public class Game implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -43,9 +43,13 @@ public class Game implements Serializable {
 	private String nmGenre;
 
 	@Column(name = "VL_AVG_SCORE")
-	private BigDecimal vlAvgScore;
+	private float vlAvgScore;
 
 	public Game() {
+	}
+
+	public void setIdGame(long idGame) {
+		this.idGame = idGame;
 	}
 
 	public long getIdGame() {
@@ -57,12 +61,7 @@ public class Game implements Serializable {
 	}
 
 	public void setDeDescription(String deDescription) {
-
-		if (deDescription.length() > 250) {
-			throw new IllegalArgumentException("Descrição muito longa!");
-		} else {
-			this.deDescription = deDescription;
-		}
+		this.deDescription = deDescription;
 	}
 
 	public int getIdPlataform() {
@@ -78,23 +77,15 @@ public class Game implements Serializable {
 	}
 
 	public void setNmDeveloper(String nmDeveloper) {
-		if (nmDeveloper.length() > 30 || nmDeveloper.length() < 2) {
-			throw new IllegalArgumentException("Desenvolvedor Inválido!");
-		} else {
-			this.nmDeveloper = nmDeveloper;
-		}
+		this.nmDeveloper = nmDeveloper;
 	}
 
 	public String getNmGame() {
 		return this.nmGame;
 	}
 
-	public void setNmGame(String nmGame) {		
-		if (nmDeveloper.length() > 30 || nmDeveloper.length() < 2) {
-			throw new IllegalArgumentException("Desenvolvedor Inválido!");
-		} else {
-			this.nmGame = nmGame;
-		}
+	public void setNmGame(String nmGame) {
+		this.nmGame = nmGame;
 	}
 
 	public String getNmGenre() {
@@ -102,16 +93,15 @@ public class Game implements Serializable {
 	}
 
 	public void setNmGenre(String nmGenre) {
-
-		if (nmGenre.length() > 30 || nmGenre.length() < 2) {
-			throw new IllegalArgumentException("Gênero Inválido!");
-		} else {
-			this.nmGenre = nmGenre;
-		}
+		this.nmGenre = nmGenre;
 	}
 
-	public BigDecimal getVlAvgScore() {
+	public float getVlAvgScore() {
 		return this.vlAvgScore;
+	}
+
+	public void setVlAvgScore(float vlAvgScore) {
+		this.vlAvgScore = vlAvgScore;
 	}
 
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h ="http://java.sun.com/jsf/html"
+	  xmlns:f ="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Game System 0.1</title>
+
+<style>
+	a,p{
+		text-transform:capitalize;
+	}
+</style>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:inputText value="#{gameMB.game.nmGame}"></p:inputText>
+		<p:commandButton value="Pesquisar" action="#{gameMB.search}" process=""></p:commandButton>
+		
+		<p:dataScroller  value="#{gameMB.games}" var="game"
+						 border="1" chunkSize="10"
+						 mode="inline"
+						 scrollHeight="450"
+						 rendered="#{gameMB.games.size() > 0}">
+		<f:facet name="header">
+			Game List
+		</f:facet>
+		
+		
+		<p>#{game.idGame}</p>
+		<h:link value="#{game.nmGame.toLowerCase()}" outcome="viewGame">
+			<f:param name="g" value="#{game.nmGame.toLowerCase()}"></f:param>
+			<f:param name="p" value="#{game.idPlataform}"></f:param>
+		</h:link>		
+		
+		<p>Desenvolvedor: #{game.nmDeveloper.toLowerCase()}</p>
+		<p>Plataforma: #{game.nmPlataform.toLowerCase()}</p>
+		<p>Nota: #{game.vlAvgScore}</p>
+		
+		<f:facet name="footer">
+			Game List
+		</f:facet>						
+		</p:dataScroller>		
+		
+	</h:form>
+</h:body>
+</html>

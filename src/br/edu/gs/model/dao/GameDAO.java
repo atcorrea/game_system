@@ -7,10 +7,19 @@ import javax.persistence.TypedQuery;
 
 import br.edu.gs.enums.GameSearchMode;
 import br.edu.gs.model.Game;
+import br.edu.gs.model.GameView;
 
+/**
+ * 
+ * @author André Torres Corrêa
+ * Classe com lógica de acesso ao banco de dados, tabelas de Game.
+ */
 public class GameDAO implements IDal<Game> {
 
-	private final int QUERY_LIMIT = 150;
+	/**
+	 * Limite de resultados em uma consulta.
+	 */
+	private final int QUERY_LIMIT = 1000;
 
 	@Override
 	public Game insert(Game newGame) {
@@ -32,41 +41,57 @@ public class GameDAO implements IDal<Game> {
 
 	@Override
 	public Game edit(Game object) {
-		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	/**
+	 * Método utilizado na view para encontrar um jogo no banco através de seu nome, faz a diferenciação pelo console,
+	 * pois podem haver dois games com o mesmo nome para vários consoles (jogo multiplataforma);
+	 * @param gameName = Nome do Game a ser encontrado.
+	 * @param idPlataform = Código da Plataforma.
+	 * @return Objeto Game
+	 */
+	public GameView getGameFromName(String gameName, long idPlataform){
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
+		em.getTransaction().begin();
+		TypedQuery<GameView> qry = em.createQuery("select g from GameView g where g.nmGame = :n and g.idPlataform = :p", GameView.class);
+		qry.setParameter("n", gameName.toUpperCase());
+		qry.setParameter("p", idPlataform);
 
-	@Override
-	public List<Game> getAll() {
+		GameView game = qry.getSingleResult();
+		em.close();
+		
+		return game;
+	}
+
+	public List<GameView> getAll() {
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
 
 		em.getTransaction().begin();
-		TypedQuery<Game> qry = em.createQuery("select g from Game g", Game.class);
+		TypedQuery<GameView> qry = em.createQuery("select g from GameView g order by g.nmPlataform, g.nmGame", GameView.class);
 
-		List<Game> games = qry.setMaxResults(QUERY_LIMIT).getResultList();
+		List<GameView> games = qry.setMaxResults(QUERY_LIMIT).getResultList();
 		em.close();
 
 		return games;
 	}
 	
-	public List<Game> getAll(String parameter, GameSearchMode searchBy) {
+	public List<GameView> getAll(String parameter, GameSearchMode searchBy) {
 		
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();		
-		String query = "select g from Game g where g.";
+		String query = "select g from GameView g where g.";
 		Integer numParameter = null;
 		
 		switch (searchBy) {
 		case Name:
 			query += "nmGame like ?1";
-			parameter = transformToLike(parameter);
 			break;
 		case Developer:
 			query += "nmDeveloper like ?1";
-			parameter = transformToLike(parameter);
 			break;
 		case Genre:
 			query += "nmGenre like ?1";
-			parameter = transformToLike(parameter);
 			break;
 		case Grade:
 			query += "vlAvgScore = ?2";
@@ -77,26 +102,23 @@ public class GameDAO implements IDal<Game> {
 			numParameter = Integer.parseInt(parameter);
 			break;
 		}
-
+		
+		query += " order by g.nmPlataform, g.nmGame";
 		em.getTransaction().begin();
-		TypedQuery<Game> qry = em.createQuery(
-				query, Game.class);
+		TypedQuery<GameView> qry = em.createQuery(
+				query, GameView.class);
 		
 		if (numParameter == null){
-			qry.setParameter(1, parameter.toUpperCase());
+			qry.setParameter(1, "%" + parameter.toUpperCase() + "%");
 		}
 		else{
 			qry.setParameter(2, numParameter);
 		}
 		
-		List<Game> games = qry.setMaxResults(QUERY_LIMIT).getResultList();
+		List<GameView> games = qry.setMaxResults(QUERY_LIMIT).getResultList();
 		em.close();
 
 		return games;
-	}
-	
-	private String transformToLike(String s){
-		return "%" + s + "%";
 	}
 
 	@Override

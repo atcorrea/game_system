@@ -10,8 +10,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * @author André Torres
- * Descrição: Classe representando a entidade usuário (gerada pelo jpa)
+ * @author André Torres Descrição: Classe representando a entidade usuário
+ *         (gerada pelo jpa)
  * 
  */
 @Entity
@@ -19,6 +19,10 @@ import java.util.Date;
 @NamedQuery(name = "User.findAll", query = "SELECT t FROM User t")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public void setDtRegister(Date dtRegister) {
+		this.dtRegister = dtRegister;
+	}
 
 	@Id
 	@Column(name = "ID_USER")
@@ -91,11 +95,10 @@ public class User implements Serializable {
 		return this.vlPassw;
 	}
 
-	public void setVlPassw(String vlPassw) throws IllegalArgumentException{
+	public void setVlPassw(String vlPassw) throws IllegalArgumentException {
 		// Verifica se senha possui entre 6 e 30 caracteres e se possui um
 		// número.
-		if ((vlPassw.length() > 30 || vlPassw.length() < 6)
-				|| !vlPassw.matches(".*\\d+.*")) {
+		if ((vlPassw.length() > 30 || vlPassw.length() < 6) || !vlPassw.matches(".*\\d+.*")) {
 
 			throw new IllegalArgumentException("Senha Inválida!");
 

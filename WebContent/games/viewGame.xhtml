@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h ="http://java.sun.com/jsf/html"
+	  xmlns:f ="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+<title>#{gameMB.game.nmGame} - GameSystem</title>
+</h:head>
+
+<f:metadata>
+	<f:viewParam name="g" value="#{gameMB.game.nmGame}"></f:viewParam>
+	<f:viewParam name="p" value="#{gameMB.game.idPlataform}"></f:viewParam>
+	<f:viewAction action="#{gameMB.startGamePage()}"></f:viewAction>
+</f:metadata>
+
+<h:body>
+
+	<p:panelGrid columns="2">
+		<p:outputLabel value="Game:"></p:outputLabel>
+		<h:outputText value="#{gameMB.game.nmGame}"></h:outputText>
+		
+		<p:outputLabel value="id:"></p:outputLabel>
+		<h:outputText value="#{gameMB.game.idGame}"></h:outputText>
+		
+		<p:outputLabel value="Plataforma:"></p:outputLabel>
+		<h:outputText value="#{gameMB.game.nmPlataform}"></h:outputText>
+		
+		<p:outputLabel value="Desenvolvedor"></p:outputLabel>
+		<h:outputText value="#{gameMB.game.nmDeveloper}"></h:outputText>
+		
+		<p:outputLabel value="Nota Média:"></p:outputLabel>
+		<h:outputText value="#{gameMB.game.vlAvgScore}"></h:outputText>
+	</p:panelGrid>
+	
+	<h:form>
+		<p:panel header="comentários">
+			<p:dataList value="#{GameMB.comments}" var="comment">
+				<h:outputText value="comment.getDeComment()"></h:outputText>
+			</p:dataList>
+		</p:panel>	
+	</h:form>
+		
+</h:body>
+</html>

@@ -10,49 +10,50 @@
 </h:head>
 
 <h:body>
-	<p:panel header="Cadastro de Novo Usuário" style="width:40%">
-		<h:form>
-		<p:growl autoUpdate="true"></p:growl>
-						<h:outputLabel value="Nome de Usuário"/>			
-					
+	
+	<p:panel header="Cadastro de Novo Usuário">
+		<h:form>													
+					<p:panelGrid columns="3">
+						<h:outputLabel value="Nome de Usuário"/>													
 						<p:inputText id="txtNmUser" 
 						value="#{userMB.user.nmUser}"
 						required="true"
-						requiredMessage="Campo Obrigatório"
-						validatorMessage="Nome de Usuário Inválido">
-							<!-- Verificar o tamanho do campo -->
+						requiredMessage="Preencha o Nome de Usuário"
+						validatorMessage="Nome de Usuário Inválido"
+						placeholder="username">
 							<f:validateLength for="txtNmUser" minimum="4" maximum="70"></f:validateLength>
 						</p:inputText>
-				
-						<h:outputLabel value="Senha"/>
-					
+						<p:messages for="txtNmUser" autoUpdate="true"></p:messages>
+						
+						<h:outputLabel value="Senha"/>					
 						<p:password id="txtVlPassw"
 						value="#{userMB.user.vlPassw}"
 						required="true"
-						requiredMessage="Campo Obrigatório"
+						requiredMessage="Preencha a Senha"
 						validatorMessage="A Senha deve conter de 8 a 30 caracteres e pelo menos 1 número">
 							<!-- Verificar o tamanho do campo -->
 							<f:validateLength for="txtVlPassw" minimum="8" maximum="30"></f:validateLength>
 							<!-- Verificar se a senha possui 1 número (regex) -->
 							<f:validateRegex for="txtVlPassw" pattern=".*\d+.*"></f:validateRegex>		
 						</p:password>
+						<p:messages for="txtVlPassw" autoUpdate="true"></p:messages>
 				
 						<h:outputLabel value="e-mail"/>
-
 						<p:inputText id="txtEmail" 
 						value="#{userMB.user.deEmail}"
 						required="true"
-						requiredMessage="Campo Obrigatório"
-						validatorMessage="Email inválido">
+						requiredMessage="Preencha o e-mail"
+						validatorMessage="Email inválido"
+						placeholder="exemplo@email.com">
 							<!-- Verificar o tamanho do campo -->
-							<f:validateLength for="txtVlPassw" maximum="250"></f:validateLength>
+							<f:validateLength for="txtVlPassw" minimum="5" maximum="250"></f:validateLength>
 							<!-- Verificar se é um email válido (regex) -->
 							<f:validateRegex for="txtVlPassw" pattern="\w+(?:\.|-)?@\w+(?:\.)\w+"></f:validateRegex>
 						</p:inputText>
-
-						<p:commandButton value="Cadastrar" action="#{userMB.newUser}" style="width:100%"/>
-
-			
+						<p:messages for="txtEmail" autoUpdate="true"></p:messages>
+						
+						<p:commandButton value="Cadastrar" action="#{userMB.newUser}"></p:commandButton>
+					</p:panelGrid>									
 		</h:form>
 	</p:panel>	
 </h:body>

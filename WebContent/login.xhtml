@@ -19,7 +19,7 @@
 						<h:panelGroup>
 							<h:outputLabel for="txtLogin" value="Usuário"></h:outputLabel>
 							<p:inputText id="txtLogin" 
-							value="#{userMB.user.nmUser}" 
+							value="#{UserMB.user.nmUser}" 
 							required="true" 
 							placeholder="digite seu login"
 							requiredMessage="Preencha o nome de usuário para continuar"
@@ -31,7 +31,7 @@
 						<h:panelGroup>
 							<h:outputLabel for="txtPassword" value="Senha"></h:outputLabel>
 							<p:password id="txtPassword"
-							value="#{userMB.user.vlPassw}" 					 
+							value="#{UserMB.user.vlPassw}" 					 
 							required="true"
 							placeholder="senha" 
 							requiredMessage="Preencha a senha para continuar"
@@ -45,11 +45,11 @@
 					
 					</p:panelGrid>
 					
-				<p:commandButton value="Entrar" action="#{userMB.authenticate}"/>							
+				<p:commandButton value="Entrar" action="#{UserMB.authenticate}"/>							
 		</h:form>			
 		<h:panelGrid columns="2">
-			<h:outputLink value="register-user.xhtml"> Criar Conta </h:outputLink>
-			<h:outputLink value="forgot-password.xhtml"> Esqueci minha senha </h:outputLink>
+			<h:outputLink value="user\register-user.xhtml"> Criar Conta </h:outputLink>
+			<h:outputLink value="user\forgot-password.xhtml"> Esqueci minha senha </h:outputLink>
 		</h:panelGrid>
 		</p:panel>
 </h:body>

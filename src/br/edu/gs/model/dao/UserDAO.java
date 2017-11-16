@@ -3,6 +3,7 @@ package br.edu.gs.model.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.edu.gs.model.User;
@@ -36,7 +37,6 @@ public class UserDAO implements IDal<User> {
 		return null;
 	}
 
-	@Override
 	public List<User> getAll() {
 		return null;
 	}
@@ -59,7 +59,8 @@ public class UserDAO implements IDal<User> {
 		return user;
 	}
 
-	public Boolean authenticate(User object) {
+	
+	public User authenticate(User object) {
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
 		em.getTransaction().begin();
 		TypedQuery<User> tq = em.createQuery("select u from User u where u.nmUser = :nm and u.vlPassw = :pw",
@@ -67,14 +68,17 @@ public class UserDAO implements IDal<User> {
 		tq.setParameter("nm", object.getNmUser());
 		tq.setParameter("pw", object.getVlPassw());
 
-		List<User> us = tq.getResultList();
-		em.close();
-
-		if (us.size() == 1) {
-			return true;
+		
+		User us = null;
+		try{
+			us = tq.getSingleResult();
+		}
+		catch (NoResultException e) {
+			em.close();	
 		}
 
-		return false;
+		em.close();	
+		return us;
 	}
 
 }

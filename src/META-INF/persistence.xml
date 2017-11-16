@@ -2,6 +2,11 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
      <persistence-unit name="game">
           <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+          <class>br.edu.gs.model.GameView</class>
+          <class>br.edu.gs.model.Plataform</class>
+          <class>br.edu.gs.model.GameComment</class>
+          <class>br.edu.gs.model.GameGrade</class>
+          <class>br.edu.gs.model.GameGradePK</class>
           <properties>
           	<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"/>
 			<property name="hibernate.show_sql" value="true"/>
