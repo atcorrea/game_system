@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import br.edu.gs.model.GameGrade;
+import br.edu.gs.utils.EntityManagerFactorySingleton;
 
 public class GameGradeDAO implements IDal<GameGrade> {
 

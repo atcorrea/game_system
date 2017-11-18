@@ -18,9 +18,10 @@
 <h:body>
 	<h:form>
 		<p:inputText value="#{gameMB.game.nmGame}"></p:inputText>
-		<p:commandButton value="Pesquisar" action="#{gameMB.search}" process=""></p:commandButton>
+		<p:commandButton value="Pesquisar" action="#{gameMB.search}" update="grdGames" resetValues="true"></p:commandButton>
 		
-		<p:dataScroller  value="#{gameMB.games}" var="game"
+		<p:dataScroller  id="grdGames"		
+						 value="#{gameMB.games}" var="game"
 						 border="1" chunkSize="10"
 						 mode="inline"
 						 scrollHeight="450"

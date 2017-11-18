@@ -1,4 +1,4 @@
-package br.edu.gs.model;
+package br.edu.gs.viewModel;
 
 import java.io.Serializable;
 import javax.persistence.*;

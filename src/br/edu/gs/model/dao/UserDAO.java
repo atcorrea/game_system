@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
 import br.edu.gs.model.User;
+import br.edu.gs.utils.EntityManagerFactorySingleton;
 
 public class UserDAO implements IDal<User> {
 
@@ -67,7 +68,6 @@ public class UserDAO implements IDal<User> {
 				User.class);
 		tq.setParameter("nm", object.getNmUser());
 		tq.setParameter("pw", object.getVlPassw());
-
 		
 		User us = null;
 		try{

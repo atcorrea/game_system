@@ -2,7 +2,7 @@ package br.edu.gs.model.dao;
 
 import java.util.List;
 
-import br.edu.gs.model.GameView;
+import br.edu.gs.viewModel.GameView;
 
 /** 
  * @author André Torres

@@ -7,7 +7,8 @@ import javax.persistence.TypedQuery;
 
 import br.edu.gs.enums.GameSearchMode;
 import br.edu.gs.model.Game;
-import br.edu.gs.model.GameView;
+import br.edu.gs.utils.EntityManagerFactorySingleton;
+import br.edu.gs.viewModel.GameView;
 
 /**
  * 

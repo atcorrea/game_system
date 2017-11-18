@@ -17,7 +17,9 @@
 </f:metadata>
 
 <h:body>
-
+	
+	<p:growl id="grGlobal" autoUpdate="true"></p:growl>
+	
 	<p:panelGrid columns="2">
 		<p:outputLabel value="Game:"></p:outputLabel>
 		<h:outputText value="#{gameMB.game.nmGame}"></h:outputText>
@@ -34,13 +36,40 @@
 		<p:outputLabel value="Nota Média:"></p:outputLabel>
 		<h:outputText value="#{gameMB.game.vlAvgScore}"></h:outputText>
 	</p:panelGrid>
+	<br/>
 	
 	<h:form>
-		<p:panel header="comentários">
-			<p:dataList value="#{GameMB.comments}" var="comment">
-				<h:outputText value="comment.getDeComment()"></h:outputText>
-			</p:dataList>
-		</p:panel>	
+		<p:panel header="Comentários">
+			<p:dataList id="grdComments"
+			value="#{gameMB.comments}" var="comment" 
+			emptyMessage="Nenhum Comentário foi escrito para este jogo. Contribua com o seu!" 
+			type="none" rows="20" 
+			paginator="true" paginatorAlwaysVisible="false">
+				
+				<p:panelGrid style="width:100%">
+					<p:row >
+						<p:column><h:outputText id="commentTitle" value=">> por #{comment.nmUser} em #{comment.dtComment}"></h:outputText></p:column>						
+					</p:row>
+					<p:row>					
+						<p:column colspan="2">
+							<h:outputText id="txtRowComment" value="#{comment.deComment}" escape="false" ></h:outputText>													
+						</p:column>
+					</p:row>	
+				</p:panelGrid>
+				<br/>												
+			</p:dataList>			
+		</p:panel>
+		<br/>
+		<p:fieldset rendered="#{!gameMB.alreadyCommentedbyUser}" legend="Fazer Comentário" toggleable="true" toggleSpeed="500" collapsed="true">       
+        		 <p:textEditor id="txtComment" value="#{gameMB.comment.deComment}" 
+        		 				validatorMessage="Tamanho máximo 250 caracteres" 
+        		 				required="true" 
+        		 				requiredMessage="Preencha o comentário para continuar">
+        		 	<f:validateLength maximum="250"></f:validateLength>
+        		 </p:textEditor>
+        		 <p:commandButton action="#{gameMB.createNewComment}" value="Enviar"></p:commandButton>
+    	</p:fieldset>
+    	<p:messages for="txtComment" autoUpdate="true"></p:messages>
 	</h:form>
 		
 </h:body>
