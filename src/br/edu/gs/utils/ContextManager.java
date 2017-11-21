@@ -37,13 +37,26 @@ public class ContextManager {
 			e.printStackTrace();
 		}
 	}
-	
-	public void reloadComponent(String idComponent){
-		RequestContext.getCurrentInstance().update(idComponent);
+
+	/**
+	 * Recarrega a página atual com javascript
+	 */
+	public void reloadPage() {
+		RequestContext.getCurrentInstance().execute("location.reload()");
 	}
 
-	
-	public boolean keepInSession(String key, Object value) {
+	/**
+	 * Sobrecarga, passa quantidade de segundos antes de recarregar
+	 * 
+	 * @param segundos
+	 *            = Segundos antes de recarregar a página
+	 */
+	public void reloadPage(int segundos) {
+		RequestContext.getCurrentInstance()
+				.execute("setTimeout( function() { location.reload();}," + (segundos * 1000) + ");");
+	}
+
+	public boolean addToSession(String key, Object value) {
 		try {
 			session.put(key, value);
 

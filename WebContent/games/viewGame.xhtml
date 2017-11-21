@@ -34,11 +34,19 @@
 		<h:outputText value="#{gameMB.game.nmDeveloper}"></h:outputText>
 		
 		<p:outputLabel value="Nota Média:"></p:outputLabel>
-		<h:outputText value="#{gameMB.game.vlAvgScore}"></h:outputText>
+		<h:outputText value="#{gameMB.gameAvgGrade}"></h:outputText>
 	</p:panelGrid>
 	<br/>
 	
-	<h:form>
+	<h:form id="frmGrade">
+		<p:panelGrid rendered="#{!gameMB.alreadyGradedbyUser}">
+			<h2><h:outputLabel value="Dê sua avaliação!"></h:outputLabel></h2>
+			<h:inputText value="#{gameMB.txtGrade}"></h:inputText>
+			<p:commandButton value="Avaliar" action="#{gameMB.gradeGame}"></p:commandButton>
+		</p:panelGrid>
+	</h:form>
+	
+	<h:form id="frmComments">
 		<p:panel header="Comentários">
 			<p:dataList id="grdComments"
 			value="#{gameMB.comments}" var="comment" 
@@ -60,6 +68,7 @@
 			</p:dataList>			
 		</p:panel>
 		<br/>
+		
 		<p:fieldset rendered="#{!gameMB.alreadyCommentedbyUser}" legend="Fazer Comentário" toggleable="true" toggleSpeed="500" collapsed="true">       
         		 <p:textEditor id="txtComment" value="#{gameMB.comment.deComment}" 
         		 				validatorMessage="Tamanho máximo 250 caracteres" 
@@ -67,9 +76,9 @@
         		 				requiredMessage="Preencha o comentário para continuar">
         		 	<f:validateLength maximum="250"></f:validateLength>
         		 </p:textEditor>
-        		 <p:commandButton action="#{gameMB.createNewComment}" value="Enviar"></p:commandButton>
+        		 <p:commandButton action="#{gameMB.createNewComment}" value="Enviar">
+        		 </p:commandButton>
     	</p:fieldset>
-    	<p:messages for="txtComment" autoUpdate="true"></p:messages>
 	</h:form>
 		
 </h:body>

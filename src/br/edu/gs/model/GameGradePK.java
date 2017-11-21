@@ -18,7 +18,13 @@ public class GameGradePK implements Serializable {
 	@Column(name="ID_USER", insertable=false, updatable=false)
 	private long idUser;
 
-	public GameGradePK() {
+	public GameGradePK(long idGame, long idUser) {
+		this.idGame = idGame;
+		this.idUser = idUser;
+	}
+	
+	public GameGradePK(){
+	
 	}
 	public long getIdGame() {
 		return this.idGame;

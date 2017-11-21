@@ -45,7 +45,7 @@ public class UserMB {
 
 		if (loggedUser != null) {
 			// Salva o usuário logado na sessão
-			cm.keepInSession("user", loggedUser);
+			cm.addToSession("user", loggedUser);
 			cm.redirect("games/searchGames.xhtml");
 		}
 

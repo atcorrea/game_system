@@ -5,7 +5,6 @@
 package br.edu.gs.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,9 +40,6 @@ public class Game implements Serializable {
 
 	@Column(name = "NM_GENRE")
 	private String nmGenre;
-
-	@Column(name = "VL_AVG_SCORE")
-	private float vlAvgScore;
 
 	public Game() {
 	}
@@ -94,14 +90,6 @@ public class Game implements Serializable {
 
 	public void setNmGenre(String nmGenre) {
 		this.nmGenre = nmGenre;
-	}
-
-	public float getVlAvgScore() {
-		return this.vlAvgScore;
-	}
-
-	public void setVlAvgScore(float vlAvgScore) {
-		this.vlAvgScore = vlAvgScore;
 	}
 
 }

@@ -1,0 +1,1 @@
+UPDATE tb_game SET `NM_DEVELOPER` = UPPER( `NM_DEVELOPER` ), `NM_GENRE` = upper(`NM_GENRE`);

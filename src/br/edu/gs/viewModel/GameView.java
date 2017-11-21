@@ -1,45 +1,45 @@
 package br.edu.gs.viewModel;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
- * Classe com todos os dados do game, utilizada para exibir em listas, não para inserir.
- * Utilizada apenas em VIEW.
+ * Classe com todos os dados do game, utilizada para exibir em listas, não para
+ * inserir. Utilizada apenas em VIEW.
  * 
  */
 @Entity
-@Table(name="VW_GAMEFULL")
-@NamedQuery(name="GameView.findAll", query="SELECT v FROM GameView v")
+@Table(name = "VW_GAMEFULL")
+@NamedQuery(name = "GameView.findAll", query = "SELECT v FROM GameView v")
 public class GameView implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="DE_DESCRIPTION")
+	@Column(name = "DE_DESCRIPTION")
 	private String deDescription;
 
 	@Id
-	@Column(name="ID_GAME")
+	@Column(name = "ID_GAME")
 	private long idGame;
 
-	@Column(name="ID_PLATAFORM")
+	@Column(name = "ID_PLATAFORM")
 	private long idPlataform;
 
-	@Column(name="NM_DEVELOPER")
+	@Column(name = "NM_DEVELOPER")
 	private String nmDeveloper;
 
-	@Column(name="NM_GAME")
+	@Column(name = "NM_GAME")
 	private String nmGame;
 
-	@Column(name="NM_GENRE")
+	@Column(name = "NM_GENRE")
 	private String nmGenre;
 
-	@Column(name="NM_PLATAFORM")
+	@Column(name = "NM_PLATAFORM")
 	private String nmPlataform;
-
-	@Column(name="VL_AVG_SCORE")
-	private BigDecimal vlAvgScore;
 
 	public GameView() {
 	}
@@ -73,7 +73,7 @@ public class GameView implements Serializable {
 	}
 
 	public void setNmDeveloper(String nmDeveloper) {
-		this.nmDeveloper = nmDeveloper;
+		this.nmDeveloper = nmDeveloper.toLowerCase();
 	}
 
 	public String getNmGame() {
@@ -81,7 +81,7 @@ public class GameView implements Serializable {
 	}
 
 	public void setNmGame(String nmGame) {
-		this.nmGame = nmGame;
+		this.nmGame = nmGame.toLowerCase();
 	}
 
 	public String getNmGenre() {
@@ -89,7 +89,7 @@ public class GameView implements Serializable {
 	}
 
 	public void setNmGenre(String nmGenre) {
-		this.nmGenre = nmGenre;
+		this.nmGenre = nmGenre.toLowerCase();
 	}
 
 	public String getNmPlataform() {
@@ -97,15 +97,7 @@ public class GameView implements Serializable {
 	}
 
 	public void setNmPlataform(String nmPlataform) {
-		this.nmPlataform = nmPlataform;
-	}
-
-	public BigDecimal getVlAvgScore() {
-		return this.vlAvgScore;
-	}
-
-	public void setVlAvgScore(BigDecimal vlAvgScore) {
-		this.vlAvgScore = vlAvgScore;
+		this.nmPlataform = nmPlataform.toLowerCase();
 	}
 
 }

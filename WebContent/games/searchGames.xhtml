@@ -16,9 +16,10 @@
 </h:head>
 
 <h:body>
-	<h:form>
+	<h:form id="frmSearchGame">
 		<p:inputText value="#{gameMB.game.nmGame}"></p:inputText>
-		<p:commandButton value="Pesquisar" action="#{gameMB.search}" update="grdGames" resetValues="true"></p:commandButton>
+		<p:commandButton value="Pesquisar" action="#{gameMB.search}" update=":frmSearchGame">
+		</p:commandButton>
 		
 		<p:dataScroller  id="grdGames"		
 						 value="#{gameMB.games}" var="game"
@@ -39,7 +40,6 @@
 		
 		<p>Desenvolvedor: #{game.nmDeveloper.toLowerCase()}</p>
 		<p>Plataforma: #{game.nmPlataform.toLowerCase()}</p>
-		<p>Nota: #{game.vlAvgScore}</p>
 		
 		<f:facet name="footer">
 			Game List

@@ -21,8 +21,9 @@ public class EntityManagerFactorySingleton {
 		
 		
 		if (emf == null){
-			emf = Persistence.createEntityManagerFactory("game");
+			emf = Persistence.createEntityManagerFactory("gamemysql");
 		}	
 			return emf;			
 	}
+	
 }

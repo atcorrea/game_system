@@ -11,7 +11,7 @@
 
 <h:body>
 		<p:panel header="Login no Sistema" style="width:25%; padding:2%; margin:10% 35%">
-		<h:form >
+		<h:form id="frmLogin">
 			
 			<p:messages autoUpdate="true" />
 					<p:panelGrid>
@@ -45,7 +45,7 @@
 					
 					</p:panelGrid>
 					
-				<p:commandButton value="Entrar" action="#{UserMB.authenticate}"/>							
+				<p:commandButton value="Entrar" action="#{UserMB.authenticate}" resetValues="frmLogin"/>							
 		</h:form>			
 		<h:panelGrid columns="2">
 			<h:outputLink value="user\register-user.xhtml"> Criar Conta </h:outputLink>

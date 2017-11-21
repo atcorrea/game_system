@@ -1,9 +1,15 @@
 package br.edu.gs.model;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -24,7 +30,7 @@ public class GameGrade implements Serializable {
 	private Date dtGrade;
 
 	@Column(name="VL_GRADE")
-	private BigDecimal vlGrade;
+	private Double vlGrade;
 
 	public GameGrade() {
 	}
@@ -45,11 +51,11 @@ public class GameGrade implements Serializable {
 		this.dtGrade = dtGrade;
 	}
 
-	public BigDecimal getVlGrade() {
+	public Double getVlGrade() {
 		return this.vlGrade;
 	}
 
-	public void setVlGrade(BigDecimal vlGrade) {
+	public void setVlGrade(Double vlGrade) {
 		this.vlGrade = vlGrade;
 	}
 
