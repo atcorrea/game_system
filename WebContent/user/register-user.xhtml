@@ -6,17 +6,18 @@
 	  xmlns:p ="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Cadastrar Usuário</title>
+	<title>Cadastrar Novo Usuário</title>
 </h:head>
 
 <h:body>
 	
 	<p:panel header="Cadastro de Novo Usuário">
+		<p:growl autoUpdate="true" globalOnly="true"></p:growl>
 		<h:form>													
 					<p:panelGrid columns="3">
 						<h:outputLabel value="Nome de Usuário"/>													
 						<p:inputText id="txtNmUser" 
-						value="#{userMB.user.nmUser}"
+						value="#{UserMB.user.nmUser}"
 						required="true"
 						requiredMessage="Preencha o Nome de Usuário"
 						validatorMessage="Nome de Usuário Inválido"
@@ -27,7 +28,7 @@
 						
 						<h:outputLabel value="Senha"/>					
 						<p:password id="txtVlPassw"
-						value="#{userMB.user.vlPassw}"
+						value="#{UserMB.user.vlPassw}"
 						required="true"
 						requiredMessage="Preencha a Senha"
 						validatorMessage="A Senha deve conter de 8 a 30 caracteres e pelo menos 1 número">
@@ -40,7 +41,7 @@
 				
 						<h:outputLabel value="e-mail"/>
 						<p:inputText id="txtEmail" 
-						value="#{userMB.user.deEmail}"
+						value="#{UserMB.user.deEmail}"
 						required="true"
 						requiredMessage="Preencha o e-mail"
 						validatorMessage="Email inválido"
@@ -52,7 +53,7 @@
 						</p:inputText>
 						<p:messages for="txtEmail" autoUpdate="true"></p:messages>
 						
-						<p:commandButton value="Cadastrar" action="#{userMB.newUser}"></p:commandButton>
+						<p:commandButton value="Cadastrar" action="#{UserMB.newUser}"></p:commandButton>
 					</p:panelGrid>									
 		</h:form>
 	</p:panel>	

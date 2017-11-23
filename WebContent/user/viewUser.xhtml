@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h ="http://java.sun.com/jsf/html"
+	  xmlns:f ="http://xmlns.jcp.org/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+
+<title>Gamer #{UserMB.user.nmUser} - GameSystem</title>
+</h:head>
+
+<f:metadata>
+	<f:viewParam name="user" value="#{UserMB.user.nmUser}"></f:viewParam>
+	<f:viewAction action="#{UserMB.loadUserPage()}"></f:viewAction>
+</f:metadata>
+
+<h:body>
+
+	<h1>
+		<h:outputText value="#{UserMB.user.nmUser}" />
+	</h1>
+	<h6>
+		<h:outputText value="Membro desde: #{UserMB.user.dtRegister}" />
+	</h6>
+	<h6>
+		<h:outputText value="#{UserMB.user.deEmail}" />
+	</h6>
+
+	<p:panel header="Jogos Completados">
+			<p:dataList id="grdCompletedGames"
+			value="#{UserMB.completedGames}" var="game" 
+			emptyMessage="#{UserMB.user.nmUser} ainda não adicionou nenhum jogo à lista de completados..." 
+			type="none" rows="20" 
+			paginator="true" paginatorAlwaysVisible="false">
+				
+				<p:panelGrid style="width:100%">
+					<p:row >
+						<p:column colspan="2">
+								 <h:link value="#{game.nmGame.toLowerCase()}" outcome="../games/viewGame">
+									<f:param name="g" value="#{game.nmGame.toLowerCase()}"></f:param>
+									<f:param name="p" value="#{game.idPlataform}"></f:param>
+							 	  </h:link>		
+						</p:column>						
+					</p:row>
+					<p:row>			
+						<p:column>
+							<h:outputLabel value="Plataforma:" />
+						</p:column>		
+						<p:column>							
+							<h:outputText value="#{game.nmPlataform.toLowerCase()}" ></h:outputText>													
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				<br/>												
+			</p:dataList>			
+		</p:panel>
+	
+</h:body>
+</html>

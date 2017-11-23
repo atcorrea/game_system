@@ -1,11 +1,19 @@
 package br.edu.gs.model.managedBeans;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.ViewScoped;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import br.edu.gs.model.User;
+import br.edu.gs.model.dao.GameDAO;
 import br.edu.gs.model.dao.UserDAO;
 import br.edu.gs.utils.ContextManager;
+import br.edu.gs.viewModel.GameView;
 
 /**
  * 
@@ -13,10 +21,13 @@ import br.edu.gs.utils.ContextManager;
  */
 @ManagedBean(name = "UserMB")
 @ViewScoped
-public class UserMB {
+public class UserMB implements Serializable {
 
 	private User user = new User();
 	private UserDAO dao = new UserDAO();
+	private List<GameView> completedGames = new ArrayList<GameView>();
+
+	private ContextManager context = new ContextManager();
 
 	public String newUser() {
 
@@ -24,10 +35,16 @@ public class UserMB {
 		System.out.println("Inserindo usuário...");
 		try {
 			dao.insert(user);
-			cm.newMessage("Usuário Inserido com sucesso!");
-
-		} catch (Exception e) {
-			return "";
+			cm.newMessage("Usuário Inserido com sucesso");
+			cm.redirect("../login.xhtml");
+		}
+		
+		catch (ConstraintViolationException e){
+			cm.newMessage("nome de usuário já existe!");
+		}
+		
+		catch (Exception e) {
+			cm.newMessage("Ocorreu um erro ao inserir o usuário, tente novamente mais tarde.");
 		}
 
 		return "";
@@ -54,12 +71,45 @@ public class UserMB {
 		}
 	}
 
+	public String loadUserPage() {
+
+		// Verifica se a URL possui os parâmetros necessários
+		boolean hasQuery = context.hasQueryStringParameter("user");
+
+		if (!hasQuery) {
+			context.redirect("searchGames.xhtml");
+		} else {
+			loadUserData();
+		}
+		return "";
+	}
+
+	// -------------------------Métodos
+	// privados------------------------------------------------------//
+	private void loadUserData() {
+
+		String parameter = user.getNmUser();
+		user = dao.getUserFromName(parameter);
+
+		// Carrega Lista de Jogos completados
+		setCompletedGames(new GameDAO().getCompletedGames(user.getIdUser()));
+	}
+
+	// -------------------------Propridades------------------------------------------------------//
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User u) {
 		this.user = u;
+	}
+
+	public List<GameView> getCompletedGames() {
+		return completedGames;
+	}
+
+	public void setCompletedGames(List<GameView> completedGames) {
+		this.completedGames = completedGames;
 	}
 
 }

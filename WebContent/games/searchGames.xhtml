@@ -17,6 +17,7 @@
 
 <h:body>
 	<h:form id="frmSearchGame">
+		<p:outputLabel value="Pesquisar Games"></p:outputLabel>
 		<p:inputText value="#{gameMB.game.nmGame}"></p:inputText>
 		<p:commandButton value="Pesquisar" action="#{gameMB.search}" update=":frmSearchGame">
 		</p:commandButton>

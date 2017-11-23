@@ -39,12 +39,32 @@
 	<br/>
 	
 	<h:form id="frmGrade">
-		<p:panelGrid rendered="#{!gameMB.alreadyGradedbyUser}">
-			<h2><h:outputLabel value="Dê sua avaliação!"></h:outputLabel></h2>
-			<h:inputText value="#{gameMB.txtGrade}"></h:inputText>
-			<p:commandButton value="Avaliar" action="#{gameMB.gradeGame}"></p:commandButton>
-		</p:panelGrid>
+		<p:fieldset legend="Avaliar Game" toggleable="true" toggleSpeed="500" collapsed="true">
+			<p:panelGrid rendered="#{!gameMB.alreadyGradedbyUser}">
+				<h2><h:outputLabel value="Dê sua Nota para #{gameMB.game.nmGame}" ></h:outputLabel></h2>
+				<p:inputNumber decimalPlaces="1" maxValue="10" minValue="0" value="#{gameMB.txtGrade}"></p:inputNumber>
+				<p:commandButton value="Avaliar" action="#{gameMB.gradeGame}"></p:commandButton>
+			</p:panelGrid>
+			
+			<p:panelGrid rendered="#{gameMB.alreadyGradedbyUser}">
+				<h2><h:outputLabel value="Edite sua Nota para #{gameMB.game.nmGame}" ></h:outputLabel></h2>
+				<p:inputNumber decimalPlaces="1" maxValue="10" minValue="0" value="#{gameMB.txtGrade}"></p:inputNumber>
+				<p:commandButton value="Editar" action="#{gameMB.editGrade}"></p:commandButton>
+			</p:panelGrid>
+		</p:fieldset>
 	</h:form>
+	<br/>
+	
+	<h:form id="frmCompleted">
+		<p:fieldset legend="Marcar como Completado" toggleable="true" toggleSpeed="500" collapsed="true">
+			<p:panelGrid>
+				<p><p:outputLabel value="Você já marcou esse game como completado" rendered="#{gameMB.alreadyCompletedbyUser}"></p:outputLabel></p>
+				<p:commandButton rendered="#{!gameMB.alreadyCompletedbyUser}" value="Game Completado" action="#{gameMB.markAsCompleted}"></p:commandButton>
+				<p:commandButton rendered="#{gameMB.alreadyCompletedbyUser}" value="Remover da Lista de Completados" action="#{gameMB.removeCompleted}"></p:commandButton>
+			</p:panelGrid>
+		</p:fieldset>
+	</h:form>
+	<br/>
 	
 	<h:form id="frmComments">
 		<p:panel header="Comentários">
@@ -56,7 +76,11 @@
 				
 				<p:panelGrid style="width:100%">
 					<p:row >
-						<p:column><h:outputText id="commentTitle" value=">> por #{comment.nmUser} em #{comment.dtComment}"></h:outputText></p:column>						
+						<p:column>							
+							Por <h:link value="#{comment.nmUser}" outcome="/user/viewUser">
+								<f:param name="user" value="#{comment.nmUser}"></f:param>
+							</h:link> em #{comment.dtComment}
+						</p:column>						
 					</p:row>
 					<p:row>					
 						<p:column colspan="2">
@@ -69,14 +93,22 @@
 		</p:panel>
 		<br/>
 		
-		<p:fieldset rendered="#{!gameMB.alreadyCommentedbyUser}" legend="Fazer Comentário" toggleable="true" toggleSpeed="500" collapsed="true">       
+		<p:fieldset legend="Fazer Comentário" toggleable="true" toggleSpeed="500" collapsed="true">
+				 <p:outputLabel rendered="#{gameMB.alreadyCommentedbyUser}" value="Você já fez um comentário neste game, se quiser pode editá-lo abaixo:"></p:outputLabel>       
         		 <p:textEditor id="txtComment" value="#{gameMB.comment.deComment}" 
         		 				validatorMessage="Tamanho máximo 250 caracteres" 
         		 				required="true" 
         		 				requiredMessage="Preencha o comentário para continuar">
         		 	<f:validateLength maximum="250"></f:validateLength>
         		 </p:textEditor>
-        		 <p:commandButton action="#{gameMB.createNewComment}" value="Enviar">
+        		 <!-- Quando usuário ainda não comentou -->
+        		 <p:commandButton rendered="#{!gameMB.alreadyCommentedbyUser}" action="#{gameMB.createNewComment}" value="Enviar Comentário">
+        		 </p:commandButton>
+        		 
+        		 <!-- Quando Usuário já comentou -->
+        		 <p:commandButton rendered="#{gameMB.alreadyCommentedbyUser}" action="#{gameMB.editComment}" value="Editar Comentário">
+        		 </p:commandButton>
+        		 <p:commandButton rendered="#{gameMB.alreadyCommentedbyUser}" action="#{gameMB.deleteComment}" value="Remover Comentário">
         		 </p:commandButton>
     	</p:fieldset>
 	</h:form>

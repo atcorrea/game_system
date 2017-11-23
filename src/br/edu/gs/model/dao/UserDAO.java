@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import br.edu.gs.model.User;
 import br.edu.gs.utils.EntityManagerFactorySingleton;
 
@@ -18,17 +20,20 @@ public class UserDAO implements IDal<User> {
 	@Override
 	public User insert(User newUser) {
 
-		try {
-			EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
+		try {			
 			em.getTransaction().begin();
 			em.persist(newUser);
 			em.getTransaction().commit();
 			em.close();
-
-		} catch (Exception e) {
+		} 
+		
+		catch (Exception e) {
 			System.out.println("Não foi possível inserir o usuário!");
+			em.getTransaction().rollback();
 			return null;
-		}
+		} 
 
 		return newUser;
 	}
@@ -45,8 +50,9 @@ public class UserDAO implements IDal<User> {
 	@Override
 	public User delete(User user) {
 
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
 		try {
-			EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+			
 			em.getTransaction().begin();
 			em.remove(user);
 			em.getTransaction().commit();
@@ -54,12 +60,12 @@ public class UserDAO implements IDal<User> {
 
 		} catch (Exception e) {
 			System.out.println("Não foi possível excluir o usuário!");
+			em.getTransaction().rollback();
 			return null;
 		}
 
 		return user;
 	}
-
 	
 	public User authenticate(User object) {
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
@@ -74,11 +80,25 @@ public class UserDAO implements IDal<User> {
 			us = tq.getSingleResult();
 		}
 		catch (NoResultException e) {
+			em.getTransaction().rollback();
 			em.close();	
 		}
-
+		em.getTransaction().commit();
 		em.close();	
 		return us;
 	}
 
+	public User getUserFromName(String nmUser){
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
+		em.getTransaction().begin();
+		TypedQuery<User> qry = em.createQuery("select u from User u where u.nmUser = :us", User.class);
+		qry.setParameter("us", nmUser.toUpperCase());
+
+		User user = qry.getSingleResult();
+		em.getTransaction().commit();
+		em.close();
+		
+		return user;
+	}
 }

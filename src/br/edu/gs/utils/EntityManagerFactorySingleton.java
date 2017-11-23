@@ -10,7 +10,6 @@ import javax.persistence.Persistence;
 
 public class EntityManagerFactorySingleton {
 	
-	//Precisei adicionar um limite de conexões, pois o uso contínuo acabava gerando erros.
 	private static EntityManagerFactory emf;
 	
 	private EntityManagerFactorySingleton(){
@@ -21,9 +20,10 @@ public class EntityManagerFactorySingleton {
 		
 		
 		if (emf == null){
-			emf = Persistence.createEntityManagerFactory("gamemysql");
-		}	
-			return emf;			
+			emf = Persistence.createEntityManagerFactory("gamemsql");
+		}		
+		return emf;
+			
 	}
 	
 }

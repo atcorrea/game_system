@@ -1,7 +1,6 @@
 package br.edu.gs.model.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,8 +16,9 @@ public class GameGradeDAO implements IDal<GameGrade> {
 	@Override
 	public GameGrade insert(GameGrade gg) {
 
-		try {
-			EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
+		try {		
 			em.getTransaction().begin();
 			em.persist(gg);
 			em.getTransaction().commit();
@@ -26,6 +26,7 @@ public class GameGradeDAO implements IDal<GameGrade> {
 
 		} catch (Exception e) {
 			System.out.println("Não foi possível inserir a nota!");
+			em.getTransaction().rollback();
 			return null;
 		}
 
@@ -38,8 +39,9 @@ public class GameGradeDAO implements IDal<GameGrade> {
 		gg.setId(new GameGradePK(idGame, idUser));
 		gg.setVlGrade(vlGrade);
 
-		try {
-			EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
+		try {			
 			em.getTransaction().begin();
 			em.persist(gg);
 			em.getTransaction().commit();
@@ -47,6 +49,7 @@ public class GameGradeDAO implements IDal<GameGrade> {
 
 		} catch (Exception e) {
 			System.out.println("Não foi possível inserir a nota!");
+			em.getTransaction().rollback();
 			return null;
 		}
 
@@ -54,14 +57,32 @@ public class GameGradeDAO implements IDal<GameGrade> {
 	}
 
 	@Override
-	public GameGrade edit(GameGrade object) {
-		// TODO Auto-generated method stub
-		return null;
+	public GameGrade edit(GameGrade grade) {
+		String query = "update GameGrade g set g.vlGrade = :vl where g.id.idGame = :g and g.id.idUser = :u";
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+
+		em.getTransaction().begin();
+		Query qry = em.createQuery(query);
+		qry.setParameter("vl", grade.getVlGrade());
+		qry.setParameter("g", grade.getId().getIdGame());
+		qry.setParameter("u", grade.getId().getIdUser());
+		
+		try {
+			qry.executeUpdate();
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			grade = null;
+			em.getTransaction().rollback();
+		}					
+		em.close();
+
+		return grade;
 	}
 
 	public GameGrade getUserGameGrade(long idGame, long idUser) {
 
-		String query = "select g from GameGrade g where g.id.idGame = :g and gg.id.idUser = :u";
+		String query = "select g from GameGrade g where g.id.idGame = :g and g.id.idUser = :u";
 
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
 
@@ -71,12 +92,11 @@ public class GameGradeDAO implements IDal<GameGrade> {
 		tq.setParameter("u", idUser);
 
 		GameGrade userGrade = tq.getSingleResult();
-
+		em.getTransaction().commit();
 		em.close();
 
 		return userGrade;
 	}
-
 	
 	public Double getAverageGrade(long idGame) {
 
@@ -96,7 +116,7 @@ public class GameGradeDAO implements IDal<GameGrade> {
 		if (first != null) {
 			avgGrade = first;
 		}
-
+		em.getTransaction().commit();
 		em.close();
 		return avgGrade;
 
@@ -105,8 +125,10 @@ public class GameGradeDAO implements IDal<GameGrade> {
 	@Override
 	public GameGrade delete(GameGrade gg) {
 
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
 		try {
-			EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+			
 			em.getTransaction().begin();
 			em.remove(gg);
 			em.getTransaction().commit();
@@ -114,6 +136,7 @@ public class GameGradeDAO implements IDal<GameGrade> {
 
 		} catch (Exception e) {
 			System.out.println("Não foi possível excluir a nota!");
+			em.getTransaction().rollback();
 			return null;
 		}
 
@@ -136,7 +159,7 @@ public class GameGradeDAO implements IDal<GameGrade> {
 			em.close();
 			return false;
 		}
-
+		em.getTransaction().commit();
 		em.close();
 		return true;
 	}
