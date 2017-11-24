@@ -3,17 +3,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h ="http://java.sun.com/jsf/html"
 	  xmlns:f ="http://xmlns.jcp.org/jsf/core"
-	  xmlns:p ="http://primefaces.org/ui">
+	  xmlns:p ="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>Cadastrar Novo Usuário</title>
 </h:head>
 
 <h:body>
-	
+	<ui:include src="/templates/header.xhtml" />
 	<p:panel header="Cadastro de Novo Usuário">
 		<p:growl autoUpdate="true" globalOnly="true"></p:growl>
-		<h:form>													
+			<h:form>													
 					<p:panelGrid columns="3">
 						<h:outputLabel value="Nome de Usuário"/>													
 						<p:inputText id="txtNmUser" 
@@ -55,8 +56,8 @@
 						
 						<p:commandButton value="Cadastrar" action="#{UserMB.newUser}"></p:commandButton>
 					</p:panelGrid>									
-		</h:form>
-	</p:panel>	
+			</h:form>
+	</p:panel>
+	<ui:include src="/templates/footer.xhtml" />	
 </h:body>
-
 </html>

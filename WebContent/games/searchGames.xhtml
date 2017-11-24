@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:h ="http://java.sun.com/jsf/html"
 	  xmlns:f ="http://xmlns.jcp.org/jsf/core"
-	  xmlns:p="http://primefaces.org/ui">
+	  xmlns:p="http://primefaces.org/ui"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Game System 0.1</title>
@@ -16,6 +17,8 @@
 </h:head>
 
 <h:body>
+	<ui:include src="/templates/header.xhtml" />
+	
 	<h:form id="frmSearchGame">
 		<p:outputLabel value="Pesquisar Games"></p:outputLabel>
 		<p:inputText value="#{gameMB.game.nmGame}"></p:inputText>
@@ -48,5 +51,7 @@
 		</p:dataScroller>		
 		
 	</h:form>
+	
+	<ui:include src="/templates/footer.xhtml" />
 </h:body>
 </html>
