@@ -84,6 +84,14 @@ public class UserMB implements Serializable {
 		return "";
 	}
 
+	public String logOut(){
+		ContextManager cm = new ContextManager();
+		cm.clearSession();
+		cm.redirect("../login.xhtml");
+		
+		return "";
+	}
+	
 	// -------------------------Métodos
 	// privados------------------------------------------------------//
 	private void loadUserData() {

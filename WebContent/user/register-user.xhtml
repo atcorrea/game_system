@@ -13,48 +13,71 @@
 <h:body>
 	<ui:include src="/templates/header.xhtml" />
 	<p:panel header="Cadastro de Novo Usuário">
-		<p:growl autoUpdate="true" globalOnly="true"></p:growl>
+		<p:growl autoUpdate="true"></p:growl>
 			<h:form>													
-					<p:panelGrid columns="3">
-						<h:outputLabel value="Nome de Usuário"/>													
-						<p:inputText id="txtNmUser" 
-						value="#{UserMB.user.nmUser}"
-						required="true"
-						requiredMessage="Preencha o Nome de Usuário"
-						validatorMessage="Nome de Usuário Inválido"
-						placeholder="username">
-							<f:validateLength for="txtNmUser" minimum="4" maximum="70"></f:validateLength>
-						</p:inputText>
-						<p:messages for="txtNmUser" autoUpdate="true"></p:messages>
+					<p:panelGrid>
+					
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Nome de Usuário"/>
+							</p:column>
+							
+							<p:column>													
+								<p:inputText id="txtNmUser" 
+								value="#{UserMB.user.nmUser}"
+								required="true"
+								requiredMessage="Preencha o Nome de Usuário"
+								validatorMessage="Nome de Usuário Inválido"
+								placeholder="username">
+									<f:validateLength for="txtNmUser" minimum="4" maximum="70"></f:validateLength>
+								</p:inputText>
+							</p:column>
+						</p:row>
 						
-						<h:outputLabel value="Senha"/>					
-						<p:password id="txtVlPassw"
-						value="#{UserMB.user.vlPassw}"
-						required="true"
-						requiredMessage="Preencha a Senha"
-						validatorMessage="A Senha deve conter de 8 a 30 caracteres e pelo menos 1 número">
-							<!-- Verificar o tamanho do campo -->
-							<f:validateLength for="txtVlPassw" minimum="8" maximum="30"></f:validateLength>
-							<!-- Verificar se a senha possui 1 número (regex) -->
-							<f:validateRegex for="txtVlPassw" pattern=".*\d+.*"></f:validateRegex>		
-						</p:password>
-						<p:messages for="txtVlPassw" autoUpdate="true"></p:messages>
-				
-						<h:outputLabel value="e-mail"/>
-						<p:inputText id="txtEmail" 
-						value="#{UserMB.user.deEmail}"
-						required="true"
-						requiredMessage="Preencha o e-mail"
-						validatorMessage="Email inválido"
-						placeholder="exemplo@email.com">
-							<!-- Verificar o tamanho do campo -->
-							<f:validateLength for="txtVlPassw" minimum="5" maximum="250"></f:validateLength>
-							<!-- Verificar se é um email válido (regex) -->
-							<f:validateRegex for="txtVlPassw" pattern="\w+(?:\.|-)?@\w+(?:\.)\w+"></f:validateRegex>
-						</p:inputText>
-						<p:messages for="txtEmail" autoUpdate="true"></p:messages>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="Senha"/>
+							</p:column>
+							
+							<p:column>					
+								<p:password id="txtVlPassw"
+								value="#{UserMB.user.vlPassw}"
+								required="true"
+								requiredMessage="Preencha a Senha"
+								validatorMessage="A Senha deve conter de 8 a 30 caracteres e pelo menos 1 número">
+									<!-- Verificar o tamanho do campo -->
+									<f:validateLength for="txtVlPassw" minimum="8" maximum="30"></f:validateLength>
+									<!-- Verificar se a senha possui 1 número (regex) -->
+									<f:validateRegex for="txtVlPassw" pattern=".*\d+.*"></f:validateRegex>		
+								</p:password>
+							</p:column>
+						</p:row>
 						
-						<p:commandButton value="Cadastrar" action="#{UserMB.newUser}"></p:commandButton>
+						<p:row>
+							<p:column>
+								<h:outputLabel value="e-mail"/>
+							</p:column>
+							
+							<p:column>
+								<p:inputText id="txtEmail" 
+									value="#{UserMB.user.deEmail}"
+									required="true"
+									requiredMessage="Preencha o e-mail"
+									validatorMessage="Email inválido"
+									placeholder="exemplo@email.com">
+										<!-- Verificar o tamanho do campo -->
+										<f:validateLength for="txtVlPassw" minimum="5" maximum="250"></f:validateLength>
+										<!-- Verificar se é um email válido (regex) -->
+										<f:validateRegex for="txtVlPassw" pattern="\w+(?:\.|-)?@\w+(?:\.)\w+"></f:validateRegex>
+									</p:inputText>
+							</p:column>
+						</p:row>
+						
+						<p:row>
+							<p:column colspan="2">
+								<p:commandButton value="Cadastrar" action="#{UserMB.newUser}" style="float:right;width:35%"></p:commandButton>
+							</p:column>
+						</p:row>
 					</p:panelGrid>									
 			</h:form>
 	</p:panel>

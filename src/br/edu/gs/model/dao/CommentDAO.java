@@ -121,6 +121,7 @@ public class CommentDAO implements IDal<GameComment> {
 		try {
 			tq.getSingleResult();			
 		} catch (NoResultException e) {
+			em.getTransaction().rollback();
 			em.close();
 			return false;
 		}

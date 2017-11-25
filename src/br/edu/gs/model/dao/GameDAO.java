@@ -136,8 +136,10 @@ public class GameDAO implements IDal<Game> {
 	@Override
 	public Game delete(Game game) {
 
+		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
 		try {
-			EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+			
 			em.getTransaction().begin();
 			em.remove(game);
 			em.getTransaction().commit();
@@ -145,7 +147,10 @@ public class GameDAO implements IDal<Game> {
 
 		} catch (Exception e) {
 			System.out.println("Não foi possível excluir o Game!");
+			em.getTransaction().rollback();
+			em.close();
 			return null;
+			
 		}
 
 		return game;
@@ -165,13 +170,15 @@ public class GameDAO implements IDal<Game> {
 
 			em.getTransaction().begin();
 			em.persist(cg);
-			em.getTransaction().commit();
-			em.close();
+			em.getTransaction().commit();			
 
 		} catch (Exception e) {
 			System.out.println("Não foi possível inserir o jogo completado!");
 			em.getTransaction().rollback();
 			return null;
+		} 
+		finally{
+			em.close();
 		}
 
 		return cg;

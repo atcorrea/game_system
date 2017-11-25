@@ -1,0 +1,19 @@
+.ui-panelgrid>*>tr,
+.ui-panelgrid .ui-panelgrid-cell {
+    border: none;
+}
+
+.ui-dock-container-top{
+    
+}
+
+#frmLogin .ui-panelgrid-cell{
+    padding: 5px;    
+}
+
+#frmLogin .ui-button{
+    width: 100%;
+    margin-top:10px;
+}
+
+

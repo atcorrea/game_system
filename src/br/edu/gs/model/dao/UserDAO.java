@@ -69,6 +69,7 @@ public class UserDAO implements IDal<User> {
 	
 	public User authenticate(User object) {
 		EntityManager em = EntityManagerFactorySingleton.getInstance().createEntityManager();
+		
 		em.getTransaction().begin();
 		TypedQuery<User> tq = em.createQuery("select u from User u where u.nmUser = :nm and u.vlPassw = :pw",
 				User.class);
@@ -78,13 +79,14 @@ public class UserDAO implements IDal<User> {
 		User us = null;
 		try{
 			us = tq.getSingleResult();
+			em.getTransaction().commit();
 		}
 		catch (NoResultException e) {
 			em.getTransaction().rollback();
-			em.close();	
 		}
-		em.getTransaction().commit();
-		em.close();	
+		finally {
+			em.close();				
+		}	
 		return us;
 	}
 

@@ -6,51 +6,70 @@
 	  xmlns:p="http://primefaces.org/ui">
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Login no GameSystem</title>
+<title>GameSystem - Login</title>
 </h:head>
 
 <h:body>
-		<p:panel header="Login no Sistema" style="width:25%; padding:2%; margin:10% 35%">
+	<link rel="stylesheet" type="text/css" href="src/reset.css"/>
+	<link rel="stylesheet" type="text/css" href="src/main.css"/>
+	<link rel="stylesheet" type="text/css" href="src/primefaces-custom.css"/>
+		
+	<p:panel header="Login" style="width:fit-content; padding:2%; margin: 150px auto; padding: 10px">
 		<h:form id="frmLogin">
 			
-			<p:messages autoUpdate="true" />
+			<p:growl autoUpdate="true" />
 					<p:panelGrid>
+						<p:row>
+							<p:column>						
+								<h:outputLabel for="txtLogin" value="Usuário"></h:outputLabel>
+							</p:column>
+							<p:column>
+								<p:inputText id="txtLogin" 
+								value="#{UserMB.user.nmUser}" 
+								required="true" 
+								placeholder="digite seu login"
+								requiredMessage="Preencha o nome de usuário para continuar"
+								validatorMessage="Usuário inválido!">
+								<f:validateLength minimum="4" maximum="70" for="txtLogin"></f:validateLength>
+								</p:inputText>
+							</p:column>
+						</p:row>
+												
+						<p:row>
+							<p:column>
+								<h:outputLabel for="txtPassword" value="Senha"></h:outputLabel>
+							</p:column>
+							<p:column>
+								<p:password id="txtPassword"
+								value="#{UserMB.user.vlPassw}" 					 
+								required="true"
+								placeholder="senha" 
+								requiredMessage="Preencha a senha para continuar"
+								validatorMessage="Senha Inválida!"
+								maxlength="30">
+								<f:validateLength minimum="6" maximum="30" for="txtPassword">
+								</f:validateLength>
+								<f:validateRegex pattern=".*\d+.*" for="txtPassword"></f:validateRegex>
+								</p:password>
+							</p:column>
+						</p:row>			
 						
-						<h:panelGroup>
-							<h:outputLabel for="txtLogin" value="Usuário"></h:outputLabel>
-							<p:inputText id="txtLogin" 
-							value="#{UserMB.user.nmUser}" 
-							required="true" 
-							placeholder="digite seu login"
-							requiredMessage="Preencha o nome de usuário para continuar"
-							validatorMessage="Usuário inválido!">
-							<f:validateLength minimum="4" maximum="70" for="txtLogin"></f:validateLength>
-							</p:inputText>
-						</h:panelGroup>
-	
-						<h:panelGroup>
-							<h:outputLabel for="txtPassword" value="Senha"></h:outputLabel>
-							<p:password id="txtPassword"
-							value="#{UserMB.user.vlPassw}" 					 
-							required="true"
-							placeholder="senha" 
-							requiredMessage="Preencha a senha para continuar"
-							validatorMessage="Senha Inválida!"
-							maxlength="30">
-							<f:validateLength minimum="6" maximum="30" for="txtPassword">
-							</f:validateLength>
-							<f:validateRegex pattern=".*\d+.*" for="txtPassword"></f:validateRegex>
-							</p:password>
-						</h:panelGroup>
+						<p:row>
+							<p:column colspan="2">
+								<p:commandButton value="Entrar" action="#{UserMB.authenticate}" resetValues="frmLogin"/>
+							</p:column>
+						</p:row>										
 					
-					</p:panelGrid>
-					
-				<p:commandButton value="Entrar" action="#{UserMB.authenticate}" resetValues="frmLogin"/>							
-		</h:form>			
-		<h:panelGrid columns="2">
-			<h:outputLink value="user\register-user.xhtml"> Criar Conta </h:outputLink>
-			<h:outputLink value="user\forgot-password.xhtml"> Esqueci minha senha </h:outputLink>
-		</h:panelGrid>
-		</p:panel>
+						<p:row>
+							<p:column>
+								<h:outputLink value="user\register-user.xhtml"> Criar Conta </h:outputLink>
+							</p:column>
+							<p:column>
+								<!-- <h:outputLink value="user\forgot-password.xhtml" style="float:right"> Esqueci minha senha </h:outputLink> -->
+							</p:column>
+						</p:row>
+				</p:panelGrid>
+		</h:form>
+	</p:panel>
 </h:body>
 </html>

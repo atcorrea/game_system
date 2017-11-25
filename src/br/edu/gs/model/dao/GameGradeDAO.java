@@ -156,6 +156,7 @@ public class GameGradeDAO implements IDal<GameGrade> {
 		try {
 			tq.getSingleResult();
 		} catch (NoResultException e) {
+			em.getTransaction().rollback();
 			em.close();
 			return false;
 		}

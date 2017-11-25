@@ -10,4 +10,20 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>vader</param-value>
+	</context-param>
+	
+	<!--  login filter -->
+	<filter>
+       <filter-name>UserFilter</filter-name>
+       <filter-class>br.edu.gs.utils.UserFilter</filter-class>     
+   </filter>
+  <filter-mapping>
+      <filter-name>UserFilter</filter-name>
+      <url-pattern>/games/*</url-pattern>
+      <url-pattern>/user/viewUser.xhtml</url-pattern>
+  </filter-mapping>
+   
 </web-app>

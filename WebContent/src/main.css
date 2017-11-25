@@ -1,0 +1,11 @@
+body{
+    background-color: #555555;
+    font-family: Verdana, Geneva, sans-serif;
+    margin: 0px;
+    text-transform: capitalize;
+}
+
+.over-message{
+    position: absolute;
+    z-index: 100;
+}
