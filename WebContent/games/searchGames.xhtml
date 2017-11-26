@@ -8,48 +8,59 @@
 <h:head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Game System 0.1</title>
-
-<style>
-	a,p{
-		text-transform:capitalize;
-	}
-</style>
 </h:head>
 
 <h:body>
 	<ui:include src="/templates/header.xhtml" />
-	
+		
 	<h:form id="frmSearchGame">
-		<p:outputLabel value="Pesquisar Games"></p:outputLabel>
-		<p:inputText value="#{gameMB.game.nmGame}"></p:inputText>
-		<p:commandButton value="Pesquisar" action="#{gameMB.search}" update=":frmSearchGame">
-		</p:commandButton>
-		
-		<p:dataScroller  id="grdGames"		
-						 value="#{gameMB.games}" var="game"
-						 border="1" chunkSize="10"
-						 mode="inline"
-						 scrollHeight="450"
-						 rendered="#{gameMB.games.size() > 0}">
-		<f:facet name="header">
-			Game List
-		</f:facet>
-		
-		
-		<p>#{game.idGame}</p>
-		<h:link value="#{game.nmGame.toLowerCase()}" outcome="viewGame">
-			<f:param name="g" value="#{game.nmGame.toLowerCase()}"></f:param>
-			<f:param name="p" value="#{game.idPlataform}"></f:param>
-		</h:link>		
-		
-		<p>Desenvolvedor: #{game.nmDeveloper.toLowerCase()}</p>
-		<p>Plataforma: #{game.nmPlataform.toLowerCase()}</p>
-		
-		<f:facet name="footer">
-			Game List
-		</f:facet>						
-		</p:dataScroller>		
-		
+		<p:panel header="Pesquisar Games">
+				<p:row>
+					<div class="search">
+						<h:panelGroup>							
+							<p:inputText value="#{gameMB.game.nmGame}"></p:inputText>
+						
+							<p:commandButton icon="fa fa-search" styleClass="search-button" action="#{gameMB.search}" update=":frmSearchGame">
+							</p:commandButton>
+						</h:panelGroup>
+					</div>					
+				</p:row>
+				<br/>
+				<p:row>
+					<p:column colspan="2">
+						<p:dataGrid id="grdGames"		
+									 value="#{gameMB.games}" 
+									 var="game"
+									 paginatorAlwaysVisible="false"
+									 paginator="true"
+									 emptyMessage="A busca não trouxe resultados"
+									 layout="grid"
+									 rows="12"
+									 columns="4">								 
+							<f:facet name="header">Games</f:facet>
+							
+							<h:link  outcome="viewGame">																				
+								<f:param name="g" value="#{game.nmGame.toLowerCase()}"></f:param>
+								<f:param name="p" value="#{game.idPlataform}"></f:param>
+								<div class="game-cell" style="overflow: hidden">
+									<div class="img-container"><img src="../src/img/no-image.jpg"></img></div>
+									<div class="text-container">
+										<div>
+											<h3 class="game-name">
+												#{game.nmGame.toLowerCase()}																																						
+											</h3>
+										</div>
+										<div>
+											#{game.nmPlataform.toLowerCase()}
+										</div>
+									</div>									
+								</div>
+							</h:link>
+												
+						</p:dataGrid>
+					</p:column>
+				</p:row>
+		</p:panel>
 	</h:form>
 	
 	<ui:include src="/templates/footer.xhtml" />

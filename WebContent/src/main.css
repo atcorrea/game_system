@@ -5,7 +5,132 @@ body{
     text-transform: capitalize;
 }
 
-.over-message{
-    position: absolute;
-    z-index: 100;
+
+/* SEARCH GAMES */
+.search button{
+    margin-left: 5px;
+}
+
+.game-cell{
+    position: relative;
+    overflow: hidden;
+    height: 370px;
+    padding: 0;
+    margin: 10px;
+    border: 1px solid white;
+    box-sizing: border-box;
+}
+
+.game-cell .game-name{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: gold;    
+}
+
+#frmSearchGame .ui-widget-content a{
+    text-decoration: none;
+}
+
+.game-cell .img-container{
+    height: 200px;
+    overflow: hidden;    
+}
+
+.game-cell img{
+    width: 310px;
+}
+
+.game-cell .text-container{
+    padding: 20px;
+}
+
+/* VIEW GAME */
+
+#main-container{
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+}
+
+#top-container{
+    width: 100%;    
+    border-bottom: 1px solid gray;
+    margin-bottom: 30px;
+    height: 201px;
+    background-color: #333333;
+}
+
+#game-pic-container{
+    width: 25%;
+    float: left;
+    border: 1px solid gray;
+    overflow: hidden;
+    height: 200px;
+    margin-right: 30px;
+}
+
+#game-pic-container img{
+    max-width: 500px;
+}
+
+#game-info-container{
+    padding-top: 10px;
+    width:56%;
+    float: left;
+}
+
+#game-info-container div{
+    width: 100%;
+    font-size: 2em;
+    color: gold;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;   
+
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+#game-grade-container{
+    float: left;
+    
+}
+
+#game-grade{
+    background-color: gold;
+    padding: 5px;
+    text-align: center;
+    color: #333333;
+    font-size: 3.2em;
+    font-weight: bolder;
+    margin: auto;
+}
+
+#game-grade-container h5{
+    color: white;
+    margin: 10px 0;
+}
+
+#comments-container{
+    width: 75%;
+    min-height: 500px;
+    max-height: 700px;
+    overflow: auto;
+    margin-right: 10px;
+    display: inline-block
+}
+
+#right-container{
+    vertical-align: top;
+    display: inline-block;
+    width: 22%;
+}
+
+#right-container button{
+    margin-top: 10px;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+#game-completed{
+    margin-bottom: 40px;
 }

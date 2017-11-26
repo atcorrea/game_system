@@ -22,98 +22,115 @@
 	
 	<p:growl id="grGlobal" autoUpdate="true"></p:growl>
 	
-	<p:panelGrid columns="2">
-		<p:outputLabel value="Game:"></p:outputLabel>
-		<h:outputText value="#{gameMB.game.nmGame}"></h:outputText>
+	<div id="main-containter" class="viewGame-page">
+		<div id="top-container">
+			<div id="game-pic-container">
+				<img src="../src/img/no-image.jpg" alt="#{gameMB.game.nmGame.toLowerCase()}" />
+			</div>
+			<div id="game-info-container">
+				<div>
+					 #{gameMB.game.nmGame.toLowerCase()}
+				</div>
+				<p:panelGrid columns="2">				
+					<p:outputLabel value="Plataforma:"></p:outputLabel>
+					<h:outputText value="#{gameMB.game.nmPlataform.toLowerCase()}"></h:outputText>
 		
-		<p:outputLabel value="id:"></p:outputLabel>
-		<h:outputText value="#{gameMB.game.idGame}"></h:outputText>
-		
-		<p:outputLabel value="Plataforma:"></p:outputLabel>
-		<h:outputText value="#{gameMB.game.nmPlataform}"></h:outputText>
-		
-		<p:outputLabel value="Desenvolvedor"></p:outputLabel>
-		<h:outputText value="#{gameMB.game.nmDeveloper}"></h:outputText>
-		
-		<p:outputLabel value="Nota Média:"></p:outputLabel>
-		<h:outputText value="#{gameMB.gameAvgGrade}"></h:outputText>
-	</p:panelGrid>
-	<br/>
-	
-	<h:form id="frmGrade">
-		<p:fieldset legend="Avaliar Game" toggleable="true" toggleSpeed="500" collapsed="true">
-			<p:panelGrid rendered="#{!gameMB.alreadyGradedbyUser}">
-				<h2><h:outputLabel value="Dê sua Nota para #{gameMB.game.nmGame}" ></h:outputLabel></h2>
-				<p:inputNumber decimalPlaces="1" maxValue="10" minValue="0" value="#{gameMB.txtGrade}"></p:inputNumber>
-				<p:commandButton value="Avaliar" action="#{gameMB.gradeGame}"></p:commandButton>
-			</p:panelGrid>
-			
-			<p:panelGrid rendered="#{gameMB.alreadyGradedbyUser}">
-				<h2><h:outputLabel value="Edite sua Nota para #{gameMB.game.nmGame}" ></h:outputLabel></h2>
-				<p:inputNumber decimalPlaces="1" maxValue="10" minValue="0" value="#{gameMB.txtGrade}"></p:inputNumber>
-				<p:commandButton value="Editar" action="#{gameMB.editGrade}"></p:commandButton>
-			</p:panelGrid>
-		</p:fieldset>
-	</h:form>
-	<br/>
-	
-	<h:form id="frmCompleted">
-		<p:fieldset legend="Marcar como Completado" toggleable="true" toggleSpeed="500" collapsed="true">
-			<p:panelGrid>
-				<p><p:outputLabel value="Você já marcou esse game como completado" rendered="#{gameMB.alreadyCompletedbyUser}"></p:outputLabel></p>
-				<p:commandButton rendered="#{!gameMB.alreadyCompletedbyUser}" value="Game Completado" action="#{gameMB.markAsCompleted}"></p:commandButton>
-				<p:commandButton rendered="#{gameMB.alreadyCompletedbyUser}" value="Remover da Lista de Completados" action="#{gameMB.removeCompleted}"></p:commandButton>
-			</p:panelGrid>
-		</p:fieldset>
-	</h:form>
-	<br/>
-	
-	<h:form id="frmComments">
-		<p:panel header="Comentários">
-			<p:dataList id="grdComments"
-			value="#{gameMB.comments}" var="comment" 
-			emptyMessage="Nenhum Comentário foi escrito para este jogo. Contribua com o seu!" 
-			type="none" rows="20" 
-			paginator="true" paginatorAlwaysVisible="false">
-				
-				<p:panelGrid style="width:100%">
-					<p:row >
-						<p:column>							
-							Por <h:link value="#{comment.nmUser}" outcome="/user/viewUser">
-								<f:param name="user" value="#{comment.nmUser}"></f:param>
-							</h:link> em #{comment.dtComment}
-						</p:column>						
-					</p:row>
-					<p:row>					
-						<p:column colspan="2">
-							<h:outputText id="txtRowComment" value="#{comment.deComment}" escape="false" ></h:outputText>													
-						</p:column>
-					</p:row>	
+					<p:outputLabel value="Desenvolvedor:"></p:outputLabel>
+					<h:outputText value="#{gameMB.game.nmDeveloper.toLowerCase()}"></h:outputText>
 				</p:panelGrid>
-				<br/>												
-			</p:dataList>			
-		</p:panel>
-		<br/>
+			</div>
+			<div id="game-grade-container">
+				<div id="game-grade">
+					<p>#{gameMB.gameAvgGrade}</p>				
+				</div>
+				<h5>Nota Média dos Gamers</h5>
+			</div>
+		</div>
 		
-		<p:fieldset legend="Fazer Comentário" toggleable="true" toggleSpeed="500" collapsed="true">
-				 <p:outputLabel rendered="#{gameMB.alreadyCommentedbyUser}" value="Você já fez um comentário neste game, se quiser pode editá-lo abaixo:"></p:outputLabel>       
-        		 <p:textEditor id="txtComment" value="#{gameMB.comment.deComment}" 
-        		 				validatorMessage="Tamanho máximo 250 caracteres" 
-        		 				required="true" 
-        		 				requiredMessage="Preencha o comentário para continuar">
-        		 	<f:validateLength maximum="250"></f:validateLength>
-        		 </p:textEditor>
-        		 <!-- Quando usuário ainda não comentou -->
-        		 <p:commandButton rendered="#{!gameMB.alreadyCommentedbyUser}" action="#{gameMB.createNewComment}" value="Enviar Comentário">
-        		 </p:commandButton>
-        		 
-        		 <!-- Quando Usuário já comentou -->
-        		 <p:commandButton rendered="#{gameMB.alreadyCommentedbyUser}" action="#{gameMB.editComment}" value="Editar Comentário">
-        		 </p:commandButton>
-        		 <p:commandButton rendered="#{gameMB.alreadyCommentedbyUser}" action="#{gameMB.deleteComment}" value="Remover Comentário">
-        		 </p:commandButton>
-    	</p:fieldset>
-	</h:form>
-	<ui:include src="/templates/footer.xhtml" />
+		<div id="middle-container">
+		
+			<div id="comments-container">
+				<h:form id="frmComments">
+					<p:panel header="Comentários">
+						<p:dataList id="grdComments"
+						value="#{gameMB.comments}" var="comment" 
+						emptyMessage="Nenhum Comentário foi escrito para este jogo. Contribua com o seu!" 
+						type="none" rows="30" 
+						paginator="true" paginatorAlwaysVisible="false">
+							
+							<p:panelGrid style="width:100%">
+								<p:row >
+									<p:column>							
+										Por <h:link value="#{comment.nmUser}" outcome="/user/viewUser">
+											<f:param name="user" value="#{comment.nmUser}"></f:param>
+										</h:link> em #{comment.dtComment}
+									</p:column>						
+								</p:row>
+								<p:row>					
+									<p:column colspan="2">
+										<h:outputText id="txtRowComment" value="#{comment.deComment}" escape="false" ></h:outputText>													
+									</p:column>
+								</p:row>	
+							</p:panelGrid>
+							<br/>												
+						</p:dataList>			
+					</p:panel>
+					<br/>
+					
+					<p:fieldset legend="Fazer Comentário" toggleable="true" toggleSpeed="500" collapsed="true">
+							 <p:outputLabel rendered="#{gameMB.alreadyCommentedbyUser}" value="Você já fez um comentário neste game, se quiser pode editá-lo abaixo:"></p:outputLabel>       
+			        		 <p:textEditor id="txtComment" value="#{gameMB.comment.deComment}" 
+			        		 				validatorMessage="Tamanho máximo 250 caracteres" 
+			        		 				required="true" 
+			        		 				requiredMessage="Preencha o comentário para continuar">
+			        		 	<f:validateLength maximum="250"></f:validateLength>
+			        		 </p:textEditor>
+			        		 <br></br>
+			        		 <!-- Quando usuário ainda não comentou -->
+			        		 <p:commandButton rendered="#{!gameMB.alreadyCommentedbyUser}" action="#{gameMB.createNewComment}" value="Enviar Comentário">
+			        		 </p:commandButton>
+			        		 
+			        		 <!-- Quando Usuário já comentou -->
+			        		 <p:commandButton rendered="#{gameMB.alreadyCommentedbyUser}" action="#{gameMB.editComment}" value="Editar Comentário">
+			        		 </p:commandButton>
+			        		 <p:commandButton rendered="#{gameMB.alreadyCommentedbyUser}" action="#{gameMB.deleteComment}" value="Remover Comentário">
+			        		 </p:commandButton>
+			    	</p:fieldset>
+				</h:form>
+			</div>
+		
+			<div id="right-container">			
+				<div id="game-completed">
+					<h:form id="frmCompleted">
+						<p:panelGrid>
+							<p><p:outputLabel style="color:white;" value="Você já marcou esse game como completado" rendered="#{gameMB.alreadyCompletedbyUser}"></p:outputLabel></p>
+							<p:commandButton rendered="#{!gameMB.alreadyCompletedbyUser}" value="Game Completado" action="#{gameMB.markAsCompleted}"></p:commandButton>
+							<p:commandButton rendered="#{gameMB.alreadyCompletedbyUser}" value="Remover da Lista" action="#{gameMB.removeCompleted}"></p:commandButton>
+						</p:panelGrid>
+					</h:form>
+				</div>
+				
+				<div id="game-assign-grade">
+					<h:form id="frmGrade">
+						<p:fieldset legend="Avaliar Game" toggleable="true" toggleSpeed="500" collapsed="true">
+							<p:panelGrid rendered="#{!gameMB.alreadyGradedbyUser}">
+								<p:inputNumber decimalPlaces="1" maxValue="10" minValue="0" value="#{gameMB.txtGrade}" style="width:100%;"></p:inputNumber>
+								<p:commandButton value="Avaliar" action="#{gameMB.gradeGame}"></p:commandButton>
+							</p:panelGrid>
+							
+							<p:panelGrid rendered="#{gameMB.alreadyGradedbyUser}">
+								<p>Edite sua nota para este game:</p>
+								<p:inputNumber decimalPlaces="1" maxValue="10" minValue="0" value="#{gameMB.txtGrade}"></p:inputNumber>
+								<p:commandButton value="Editar" action="#{gameMB.editGrade}"></p:commandButton>
+							</p:panelGrid>
+						</p:fieldset>
+					</h:form>
+				</div>	
+			</div>					
+		</div>
+</div>
+	
+	
+<ui:include src="/templates/footer.xhtml" />
 </h:body>
 </html>

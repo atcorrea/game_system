@@ -203,6 +203,7 @@ public class GameDAO implements IDal<Game> {
 		} catch (Exception e) {
 			System.out.println("Não foi possível remover o jogo completado!" + e.getMessage());
 			em.getTransaction().rollback();
+			em.close();
 			return null;
 		}
 
@@ -251,10 +252,15 @@ public class GameDAO implements IDal<Game> {
 
 		try {
 			qry.getSingleResult();
+			em.getTransaction().commit();
+			
 		} catch (NoResultException e) {
+			em.getTransaction().rollback();
+			em.close();
 			return false;
 		}
-
+		
+		em.close();
 		return isCompleted;
 	}
 }
