@@ -63,7 +63,7 @@
 									<p:column>							
 										Por <h:link value="#{comment.nmUser}" outcome="/user/viewUser">
 											<f:param name="user" value="#{comment.nmUser}"></f:param>
-										</h:link> em #{comment.dtComment}
+										</h:link> em #{formatMB.transformToFormatedDate(comment.dtComment)}
 									</p:column>						
 								</p:row>
 								<p:row>					

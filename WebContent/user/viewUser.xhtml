@@ -18,44 +18,51 @@
 
 <h:body>
 	<ui:include src="/templates/header.xhtml" />
-	<h1>
-		<h:outputText value="#{UserMB.user.nmUser}" />
-	</h1>
-	<h6>
-		<h:outputText value="Membro desde: #{UserMB.user.dtRegister}" />
-	</h6>
-	<h6>
-		<h:outputText value="#{UserMB.user.deEmail}" />
-	</h6>
-
-	<p:panel header="Jogos Completados">
-			<p:dataList id="grdCompletedGames"
-			value="#{UserMB.completedGames}" var="game" 
-			emptyMessage="#{UserMB.user.nmUser} ainda não adicionou nenhum jogo à lista de completados..." 
-			type="none" rows="20" 
-			paginator="true" paginatorAlwaysVisible="false">
-				
-				<p:panelGrid style="width:100%">
-					<p:row >
-						<p:column colspan="2">
-								 <h:link value="#{game.nmGame.toLowerCase()}" outcome="../games/viewGame">
-									<f:param name="g" value="#{game.nmGame.toLowerCase()}"></f:param>
-									<f:param name="p" value="#{game.idPlataform}"></f:param>
-							 	  </h:link>		
-						</p:column>						
-					</p:row>
-					<p:row>			
-						<p:column>
-							<h:outputLabel value="Plataforma:" />
-						</p:column>		
-						<p:column>							
-							<h:outputText value="#{game.nmPlataform.toLowerCase()}" ></h:outputText>													
-						</p:column>
-					</p:row>
-				</p:panelGrid>
-				<br/>												
-			</p:dataList>			
-		</p:panel>
+	
+	<div id="userTop-container">
+		<div id="profile-photo-container">
+			<img src="../src/img/user-no-photo.png"/>
+		</div>
+		<div id="user-profile-container">
+			<h1>
+				<h:outputText value="#{UserMB.user.nmUser}" />
+			</h1>
+			<p><h:outputText value="#{UserMB.user.deEmail}" /></p>
+			<p><h:outputText value="Membro desde: #{formatMB.transformToFormatedDate(UserMB.user.dtRegister)}" /></p>			
+		</div>
+	</div>
+	
+	<div id="completed-list">
+			<p:dataGrid id="grdCompletedGames"		
+									 value="#{UserMB.completedGames}" 
+									 var="game"
+									 paginatorAlwaysVisible="false"
+									 paginator="true"
+									 emptyMessage="#{UserMB.user.nmUser} ainda nÃ£o adicionou nenhum jogo a lista de completados..."
+									 layout="grid"
+									 rows="5"
+									 columns="4">								 
+							<f:facet name="header">Jogos Completados</f:facet>
+							
+							<h:link outcome="/games/viewGame">																				
+								<f:param name="g" value="#{game.nmGame.toLowerCase()}"></f:param>
+								<f:param name="p" value="#{game.idPlataform}"></f:param>
+								<div class="game-cell" style="overflow: hidden">
+									<div class="img-container"><img src="../src/img/no-image.jpg"></img></div>
+									<div class="text-container">
+										<div>
+											<h3 class="game-name">
+												#{game.nmGame.toLowerCase()}																																						
+											</h3>
+										</div>
+										<div>
+											#{game.nmPlataform.toLowerCase()}
+										</div>
+									</div>									
+								</div>
+							</h:link>											
+			</p:dataGrid>
+	</div>							
 	<ui:include src="/templates/footer.xhtml" />
 </h:body>
 </html>

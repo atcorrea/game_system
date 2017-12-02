@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"      
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>Insert title here</title>
@@ -12,18 +13,40 @@
 	<ui:composition>
 		<link rel="stylesheet" type="text/css" href="../src/reset.css"/>
 		<link rel="stylesheet" type="text/css" href="../src/main.css"/>
-		<link rel="stylesheet" type="text/css" href="../src/primefaces-custom.css"/>
-		<link rel="stylesheet" type="text/css" href="../src/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../src/primefaces-custom.css"/>		
 		
-		<div style="background-color:#111111; padding:0 5px 75px 25px;margin-bottom:20px;color:white">
-			<h1 style="float:left"><img src="../src/img/logo.png" width="120px"/></h1>
-		<h:form>
-			<p:dock position="top">
-	    		<p:menuitem value="Meu Perfil" icon="../src/img/gamer.png" url="../user/viewUser.xhtml?user=#{user.nmUser}"/>
-	    		<p:menuitem value="Buscar Games" icon="../src/img/game-controller.png" url="../games/searchGames.xhtml"/>
-	    		<p:menuitem value="Sair" icon="../src/img/exit.png" action="#{UserMB.logOut()}"/>
-			</p:dock>
-		</h:form>
+		<div id="header-container">
+			<div id="logo-container">
+				<h:link outcome="/games/searchGames">
+					<h1 style="float:left"><img src="../src/img/logo.png" width="170px"/></h1>
+				</h:link>
+			</div>
+			
+			<div id="menu-container">
+				<h:form>
+					<ul>
+						<h:link outcome="/user/viewUser">						
+							<li>							
+								 <f:param name="user" value="#{user.nmUser}"></f:param>
+								<i class="fa fa-user-circle-o" aria-hidden="true"></i>
+								<p>Meu Perfil</p>							 
+							</li>
+						</h:link>
+						<h:link outcome="/games/searchGames">
+						<li>							
+							<i class="fa fa-gamepad" aria-hidden="true"></i>
+							<p>Buscar Games</p>							 
+						</li>
+						</h:link>
+						<h:commandLink action="#{UserMB.logOut()}">
+							<li>							
+								<i class="fa fa-sign-out" aria-hidden="true"></i>
+								<p>Sair</p>							 
+							</li>
+						</h:commandLink>
+					</ul>
+				</h:form>
+			</div>
 		</div>
 	</ui:composition>
 </body>

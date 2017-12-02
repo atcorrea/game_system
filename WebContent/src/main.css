@@ -5,6 +5,48 @@ body{
     text-transform: capitalize;
 }
 
+/*HEADER*/
+#header-container{
+    height: 150px;
+    background-color: #111111;
+    padding: 0 25px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+#logo-container{
+    float: left;
+    width: 15%;
+}
+
+#menu-container{
+    float: left;
+}
+
+#menu-container ul{
+    margin: 0;
+    padding: 0;
+}
+
+#menu-container a, #menu-container a:visited{
+    text-decoration: none;
+    color: white;
+}
+
+#menu-container li{
+    text-align: center;
+    display: inline-block;
+    width: 120px;
+
+    padding: 15px;
+    border: 1px solid;
+}
+
+#menu-container i{
+    font-size: 45px;
+    color: gold;
+}
+
 
 /* SEARCH GAMES */
 .search button{
@@ -14,7 +56,7 @@ body{
 .game-cell{
     position: relative;
     overflow: hidden;
-    height: 370px;
+    height: 400px;
     padding: 0;
     margin: 10px;
     border: 1px solid white;
@@ -26,7 +68,7 @@ body{
     color: gold;    
 }
 
-#frmSearchGame .ui-widget-content a{
+#frmSearchGame .ui-widget-content a, #completed-list .ui-widget-content a{
     text-decoration: none;
 }
 
@@ -118,6 +160,10 @@ body{
     display: inline-block
 }
 
+#comments-container p{
+    text-transform: none;
+}
+
 #right-container{
     vertical-align: top;
     display: inline-block;
@@ -133,4 +179,34 @@ body{
 
 #game-completed{
     margin-bottom: 40px;
+}
+
+/* VIEW USER */
+
+#userTop-container{
+    height: 175px;
+    background-color: #333333;
+    margin-bottom: 10px;
+    color: white;
+    padding: 10px 20px;
+}
+
+#profile-photo-container{
+    float: left;
+    overflow: hidden;
+    width: 15%;
+    margin-right: 20px;
+    background-color: dimgray;
+    padding: 10px;
+
+    text-align: center;
+}
+
+#profile-photo-container img{
+    height: 150px;
+}
+
+#user-profile-container{
+    float: left;
+    padding: 15px;
 }
